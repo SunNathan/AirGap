@@ -74,5 +74,10 @@ export default defineNuxtConfig({
         replace: {
             'typeof window': '`undefined`',
         }
+    },
+    nitro: {
+        replace: {
+            'typeof window': '`undefined`',
+        }
     }
 });
