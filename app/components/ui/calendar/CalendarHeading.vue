@@ -1,12 +1,12 @@
 <script setup>
-import { reactiveOmit } from "@vueuse/core";
-import { CalendarHeading, useForwardProps } from "reka-ui";
-import { cn } from "@/lib/utils";
+import {reactiveOmit} from "@vueuse/core";
+import {CalendarHeading, useForwardProps} from "reka-ui";
+import {cn} from "~~/lib/utils.ts";
 
 const props = defineProps({
-  asChild: { type: Boolean, required: false },
-  as: { type: null, required: false },
-  class: { type: null, required: false },
+  asChild: {type: Boolean, required: false},
+  as: {type: null, required: false},
+  class: {type: null, required: false},
 });
 
 defineSlots();
@@ -18,9 +18,9 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 <template>
   <CalendarHeading
-    v-slot="{ headingValue }"
-    :class="cn('text-sm font-medium', props.class)"
-    v-bind="forwardedProps"
+      v-slot="{ headingValue }"
+      :class="cn('text-sm font-medium', props.class)"
+      v-bind="forwardedProps"
   >
     <slot :heading-value>
       {{ headingValue }}

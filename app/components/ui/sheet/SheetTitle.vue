@@ -1,12 +1,12 @@
 <script setup>
-import { reactiveOmit } from "@vueuse/core";
-import { DialogTitle } from "reka-ui";
-import { cn } from "@/lib/utils";
+import {reactiveOmit} from "@vueuse/core";
+import {DialogTitle} from "reka-ui";
+import {cn} from "~~/lib/utils.ts";
 
 const props = defineProps({
-  asChild: { type: Boolean, required: false },
-  as: { type: null, required: false },
-  class: { type: null, required: false },
+  asChild: {type: Boolean, required: false},
+  as: {type: null, required: false},
+  class: {type: null, required: false},
 });
 
 const delegatedProps = reactiveOmit(props, "class");
@@ -14,9 +14,9 @@ const delegatedProps = reactiveOmit(props, "class");
 
 <template>
   <DialogTitle
-    :class="cn('text-lg font-semibold text-foreground', props.class)"
-    v-bind="delegatedProps"
+      :class="cn('text-lg font-semibold text-foreground', props.class)"
+      v-bind="delegatedProps"
   >
-    <slot />
+    <slot/>
   </DialogTitle>
 </template>
