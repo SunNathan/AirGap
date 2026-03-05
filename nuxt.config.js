@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+    compatibilityDate: "2026-03-05",
     devtools: { enabled: true },
     css: ["~/assets/css/styles.css"],
     modules: ["@nuxt/ui", "nuxt-auth-utils", "@nuxt/eslint", "shadcn-nuxt"],
