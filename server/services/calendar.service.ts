@@ -71,8 +71,7 @@ export const getUserTransactionsByYear = async (userId: string, year: number, mo
 export const getAvailableYears = async (userId: string) => {
     const yearSql = sql<number>`EXTRACT(YEAR FROM
     ${transactions.date}
-    :
-    :
+    ::
     timestamp
     )`
 
@@ -90,8 +89,7 @@ export const getAvailableYears = async (userId: string) => {
 export const getAvailableMonths = async (userId: string) => {
     const monthSql = sql<number>`EXTRACT(MONTH FROM
     ${transactions.date}
-    :
-    :
+    ::
     timestamp
     )`
 
@@ -109,8 +107,7 @@ export const getAvailableMonths = async (userId: string) => {
 export const getAvailableQuarters = async (userId: string) => {
     const quarterSql = sql<number>`EXTRACT(QUARTER FROM
     ${transactions.date}
-    :
-    :
+    ::
     timestamp
     )`
 
