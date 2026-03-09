@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
-
 @import "tailwindcss";
 
 @theme {
+
+    --color-chart-1: oklch(0.723 0.219 149.579);
+    --color-chart-2: oklch(0.871 0.15 154.449);
 
     --color-primary-50: #fdfffd;
     --color-primary-100: #d1fae5;
@@ -28,7 +29,7 @@
     --color-neutral-900: #0f172b;
     --color-neutral-950: #020618;
 
-    --font-sans: "Sora", "Inter";
+    --font-sans: "Inter";
 }
 
 @variant dark (&:where(.dark, .dark *));
@@ -36,7 +37,7 @@
 @layer base {
     body {
         @apply bg-primary-50 text-neutral-900 transition-colors duration-300;
-        font-family: 'Sora', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
     .dark body {
@@ -58,7 +59,7 @@
     }
 
     .btn-primary {
-        @apply bg-primary-500 text-white hover:bg-primary-600 focus:ring-2 focus:ring-primary-300 dark:focus:ring-primary-700;
+        @apply bg-white text-black hover:bg-chart-2 focus:ring-2 focus:ring-primary-300 dark:focus:ring-primary-700;
     }
 
     .btn-outline {

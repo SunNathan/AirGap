@@ -1,7 +1,7 @@
 <script setup>
 import {reactiveOmit} from "@vueuse/core";
 import {CalendarCellTrigger, useForwardProps} from "reka-ui";
-import {cn} from "~~/lib/utils.ts";
+import {cn} from "~/lib/utils.ts";
 import {buttonVariants} from '@/components/ui/button';
 
 const props = defineProps({

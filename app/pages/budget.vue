@@ -1,7 +1,7 @@
 <template>
   <div class="pt-16 pb-8 px-4">
     <div class="max-w-6xl mx-auto">
-      <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center justify-between mb-8 gap-4">
         <div>
           <h1 class="text-4xl font-black tracking-tighter">Budgets</h1>
         </div>

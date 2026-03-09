@@ -9,7 +9,7 @@
             <NuxtLink to="/" class="text-xl font-semibold text-primary-600 dark:text-primary-400">AirGap</NuxtLink>
           </div>
 
-          <nav aria-label="naviguation bar for mobile AirGap" class="hidden md:flex items-center space-x-20">
+          <nav aria-label="naviguation bar for desktop AirGap" class="hidden md:flex items-center space-x-20">
             <NuxtLink to="/" class="nav-link" active-class="nav-link-active">Tableau de bord</NuxtLink>
             <NuxtLink to="/transactions" class="nav-link" active-class="nav-link-active">Transactions</NuxtLink>
             <NuxtLink to="/budget" class="nav-link" active-class="nav-link-active">Budgets</NuxtLink>
