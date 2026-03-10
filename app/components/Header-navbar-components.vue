@@ -6,19 +6,29 @@
         <div class="flex items-center justify-between h-16">
 
           <div class="flex items-center">
-            <NuxtLink to="/" class="text-xl font-semibold text-primary-600 dark:text-primary-400">AirGap</NuxtLink>
+            <Button class="text-xl font-semibold text-primary-600 dark:text-primary-400">
+              <NuxtLink to="/">AirGap</NuxtLink>
+            </Button>
           </div>
 
           <nav aria-label="naviguation bar for desktop AirGap" class="hidden md:flex items-center space-x-20">
-            <NuxtLink to="/" class="nav-link" active-class="nav-link-active">Tableau de bord</NuxtLink>
-            <NuxtLink to="/transactions" class="nav-link" active-class="nav-link-active">Transactions</NuxtLink>
-            <NuxtLink to="/budget" class="nav-link" active-class="nav-link-active">Budgets</NuxtLink>
-            <NuxtLink to="/about" class="nav-link" active-class="nav-link-active">À propos</NuxtLink>
+            <Button class="nav-link" active-class="nav-link-active">
+              <NuxtLink to="/" >Tableau de bord</NuxtLink>
+            </Button>
+            <Button class="nav-link" active-class="nav-link-active">
+              <NuxtLink to="/transactions">Transactions</NuxtLink>
+            </Button>
+            <Button class="nav-link" active-class="nav-link-active">
+              <NuxtLink to="/budget">Budgets</NuxtLink>
+            </Button>
+            <Button class="nav-link" active-class="nav-link-active">
+              <NuxtLink to="/about">À propos</NuxtLink>
+            </Button>
           </nav>
 
           <div class="flex items-center space-x-2">
 
-            <button
+            <Button
                 class="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 @click="toggleTheme">
               <svg
@@ -34,12 +44,12 @@
                   viewBox="0 0 20 20" fill="currentColor">
                 <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
               </svg>
-            </button>
+            </Button>
 
             <div class="hidden md:flex items-center space-x-2">
               <template v-if="loggedIn">
                 <div class="relative">
-                  <button
+                  <Button
                       class="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                       @click="toggleDropdown">
                     <span class="text-sm text-neutral-700 dark:text-neutral-300">{{
@@ -52,24 +62,26 @@
                         stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
-                  </button>
+                  </Button>
                   <div
                       v-if="isDropdownOpen"
                       class="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-900 rounded-md overflow-hidden shadow-lg border border-neutral-200 dark:border-neutral-800">
+                    <Button class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
                     <NuxtLink
                         to="/profile"
-                        class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                         @click="isDropdownOpen = false">Mon profil
                     </NuxtLink>
+                    </Button>
+                    <Button class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
                     <NuxtLink
                         to="/settings"
-                        class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                         @click="isDropdownOpen = false">Paramètres
                     </NuxtLink>
-                    <button
+                    </Button>
+                    <Button
                         class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                         @click="logout">Déconnexion
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </template>
@@ -123,6 +135,7 @@
 <script setup>
 import {ref, watch, onMounted, onUnmounted} from 'vue';
 import {Home, ArrowRightLeft, PieChart, User} from 'lucide-vue-next'
+import { Button } from '~/components/ui/button';
 
 const {loggedIn, user, clear: clearSession} = useUserSession();
 const isDarkTheme = ref(false);
