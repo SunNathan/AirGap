@@ -7,7 +7,7 @@
           <CardDescription>Accédez à votre tableau de bord</CardDescription>
         </div>
         <div>
-          <Button as-child variant="link" class="hover:underline">
+          <Button class="hover:underline font-medium">
             <NuxtLink to="/register">
               S'enregistrer
             </NuxtLink>
