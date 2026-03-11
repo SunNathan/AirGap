@@ -2,123 +2,142 @@
   <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center">
     <div class="fixed inset-0 bg-neutral-900/60 backdrop-blur-sm" @click="closeModal"/>
 
-    <div class="bg-white dark:bg-neutral-800 shadow-xl rounded-lg w-full max-w-md mx-auto z-50 relative">
-      <div class="p-6">
-        <h2 class="text-xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">
+    <Card class="w-full max-w-md mx-auto relative">
+      <CardHeader>
+        <CardTitle class="text-neutral-900 dark:text-neutral-50">
           {{ isEditing ? 'Modifier la transaction' : 'Nouvelle transaction' }}
-        </h2>
+        </CardTitle>
+      </CardHeader>
 
-        <form class="space-y-4" @submit.prevent="submitForm">
-          <div>
-            <label for="description" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Description</label>
-            <input
+      <form class="space-y-4" @submit.prevent="submitForm">
+        <CardContent>
+          <Field>
+            <FieldLabel for="description" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+              Description
+            </FieldLabel>
+            <Input
                 id="description"
                 v-model="form.description"
                 type="text"
-                class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                class="w-full px-3 py-2 dark:border-button-1 focus:outline-none focus:ring-1 focus:ring-button-3 transition-colors"
                 placeholder="Ex: Salaire, Courses Leclerc, Loyer..."
                 required
-            >
-          </div>
-
-          <div>
-            <label for="amount" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Montant</label>
+            />
+          </Field>
+          <Field>
+            <FieldLabel for="amount"
+                        class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mt-2">Montant
+            </FieldLabel>
             <div class="relative">
-              <input
+              <Input
                   id="amount"
                   v-model.number="form.amount"
                   type="number"
-                  class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors pr-10"
+                  class="w-full px-3 py-2 dark:border-button-1 focus:outline-none focus:ring-1 focus:ring-button-3 transition-colors"
                   step="0.01"
                   min="0.01"
                   placeholder="0.00"
                   required
-              >
-              <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500">€</span>
+              />
+              <span class="absolute right-10 top-1/2 transform -translate-y-1/2 text-neutral-500">€</span>
             </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
+          </Field>
+          <Field>
+            <RadioGroup v-model="form.type"
+                        class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mt-4 mb-4">
               <div class="flex gap-3 mt-1">
-                <label class="flex items-center cursor-pointer">
-                  <input
-                      v-model="form.type"
-                      type="radio"
-                      value="income"
-                      class="mr-2"
-                  >
-                  <span class="text-green-600 dark:text-green-400 font-medium">Revenu</span>
-                </label>
-                <label class="flex items-center cursor-pointer">
-                  <input
-                      v-model="form.type"
-                      type="radio"
-                      value="expense"
-                      class="mr-2"
-                  >
-                  <span class="text-red-600 dark:text-red-400 font-medium">Dépense</span>
-                </label>
+                <RadioGroupItem
+                    id="income-menu"
+                    value="income"
+                    class="mr-2"
+                />
+                <Label for="income-menu" class="text-green-600 dark:text-green-400 font-medium">Revenu</Label>
+                <RadioGroupItem
+                    id="expense-menu"
+                    value="expense"
+                    class="mr-2"
+                />
+                <Label for="expense-menu" class="text-red-600 dark:text-red-400 font-medium">Dépense</Label>
               </div>
-            </label>
-          </div>
-
-          <div>
-            <label for="category" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Catégorie</label>
-            <select
-                id="category"
+            </RadioGroup>
+          </Field>
+          <Field>
+            <FieldLabel for="category"
+                        class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Catégorie
+            </FieldLabel>
+            <Select
                 v-model="form.categoryId"
-                class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-                :disabled="isLoadingCategories"
-                required
             >
-              <option :value="null" disabled>Sélectionner une catégorie</option>
-              <option v-for="cat in filteredCategories" :key="cat.id" :value="cat.id">
-                {{ cat.name }}
-              </option>
-            </select>
+              <SelectTrigger
+                  id="category"
+                  class="w-full"
+                  :disabled="isLoadingCategories"
+                  required
+              >
+                <SelectValue placeholder="Sélectionnez une catégorie"/>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem v-for="cat in filteredCategories" :key="cat.id" :value="cat.id.toString">
+                  {{ cat.name }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
 
             <p v-if="filteredCategories.length === 0 && !isLoadingCategories" class="text-xs text-orange-500 mt-1">
               Aucune catégorie trouvée pour ce type.
             </p>
-          </div>
+          </Field>
 
-          <div>
-            <label for="date" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Date</label>
-            <input
-                id="date"
-                v-model="form.date"
-                type="date"
-                class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-                required
-            >
-          </div>
-
-          <div class="flex justify-end gap-3 pt-4 border-t border-neutral-100 dark:border-neutral-700 mt-4">
-            <button
-                type="button"
-                class="px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-                @click="closeModal"
-            >
-              Annuler
-            </button>
-            <button
-                type="submit"
-                class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
-                :disabled="isLoading"
-            >
-              <span v-if="isLoading">En cours...</span>
-              <span v-else>{{ isEditing ? 'Enregistrer' : 'Ajouter' }}</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+          <Field>
+            <Popover>
+              <PopoverTrigger as-child>
+                <Button
+                    variant="outline"
+                    :class="cn(
+          'w-[280px] justify-start text-left font-normal',
+          !form.date && 'text-muted-foreground',
+        )"
+                >
+                  <CalendarIcon class="mr-2 h-4 w-4"/>
+                  {{ form.date ? form.date : "Selectionnez une date" }}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent class="w-auto p-0" align="start">
+                <Calendar
+                    v-model="form.date"
+                    class="bg-neutral-700 cursor-pointer"
+                />
+              </PopoverContent>
+            </Popover>
+          </Field>
+        </CardContent>
+        <CardFooter class="gap-3">
+          <Button
+              type="button"
+              class="w-full cursor-pointer border-primary-50 text-neutral-700 dark:text-neutral-300 bg-neutral-500 dark:bg-neutral-700 hover:dark:bg-neutral-600 hover:bg-neutral-400 transition-colors"
+              @click="closeModal"
+          >
+            Annuler
+          </Button>
+          <Button
+              type="submit"
+              class="w-full cursor-pointer text-primary-50 bg-primary-500 hover:bg-primary-600 transition-colors"
+              :disabled="isLoading"
+          >
+            <span v-if="isLoading">En cours...</span>
+            <span v-else>{{ isEditing ? 'Enregistrer' : 'Ajouter' }}</span>
+          </Button>
+        </CardFooter>
+      </form>
+    </Card>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue';
+import {ref, onMounted, computed, watch} from 'vue';
+import {SelectContent, SelectItem, SelectTrigger, SelectValue} from "~/components/ui/select/index.js";
+import {CalendarIcon} from 'lucide-vue-next';
+import {cn} from "~/lib/utils.ts";
 
 // --- PROPS & EMITS ---
 const props = defineProps({
@@ -145,7 +164,7 @@ const form = ref({
   amount: '',
   type: 'depense',
   categoryId: null,
-  date: today
+  date: undefined
 });
 
 // --- API : CHARGEMENT CATÉGORIES ---
@@ -200,7 +219,7 @@ watch(
         };
       }
     },
-    { immediate: true }
+    {immediate: true}
 );
 
 // --- SUBMIT ---
