@@ -29,28 +29,17 @@
           <div class="flex items-center space-x-2">
 
             <Button
-                class="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                class="cursor-pointer p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 @click="toggleTheme">
-              <svg
-                  v-if="isDarkTheme" xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-neutral-700 dark:text-neutral-300" viewBox="0 0 20 20" fill="currentColor">
-                <path
-                    fill-rule="evenodd"
-                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                    clip-rule="evenodd"/>
-              </svg>
-              <svg
-                  v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-neutral-700 dark:text-neutral-300"
-                  viewBox="0 0 20 20" fill="currentColor">
-                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-              </svg>
+              <Sun v-if="isDarkTheme" />
+              <Moon v-else />
             </Button>
 
             <div class="hidden md:flex items-center space-x-2">
               <template v-if="loggedIn">
                 <div class="relative">
                   <Button
-                      class="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                      class="cursor-pointer flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                       @click="toggleDropdown">
                     <span class="text-sm text-neutral-700 dark:text-neutral-300">{{
                         user?.name || 'Utilisateur'
@@ -65,21 +54,21 @@
                   </Button>
                   <div
                       v-if="isDropdownOpen"
-                      class="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-900 rounded-md overflow-hidden shadow-lg border border-neutral-200 dark:border-neutral-800">
-                    <Button class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                      class="absolute right-0 mt-2 w-full bg-white dark:bg-neutral-900 rounded-md overflow-hidden shadow-lg border border-neutral-200 dark:border-neutral-800">
+                    <Button class="w-full block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
                     <NuxtLink
                         to="/profile"
                         @click="isDropdownOpen = false">Mon profil
                     </NuxtLink>
                     </Button>
-                    <Button class="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                    <Button class="w-full block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
                     <NuxtLink
                         to="/settings"
                         @click="isDropdownOpen = false">Paramètres
                     </NuxtLink>
                     </Button>
                     <Button
-                        class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                        class="cursor-pointer w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                         @click="logout">Déconnexion
                     </Button>
                   </div>
@@ -134,7 +123,7 @@
 
 <script setup>
 import {ref, watch, onMounted, onUnmounted} from 'vue';
-import {Home, ArrowRightLeft, PieChart, User} from 'lucide-vue-next'
+import {Home, ArrowRightLeft, PieChart, User, Sun, Moon} from 'lucide-vue-next'
 import { Button } from '~/components/ui/button';
 
 const {loggedIn, user, clear: clearSession} = useUserSession();
