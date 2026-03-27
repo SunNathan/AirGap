@@ -5,7 +5,7 @@
       <div class="flex justify-center mb-10 w-full">
         <div
             class="bg-gray-50 dark:bg-neutral-800/50 p-1.5 rounded-lg flex flex-wrap justify-center items-center gap-2 border border-gray-200 dark:border-neutral-700 backdrop-blur-sm z-20 w-full sm:w-auto">
-          <button
+          <Button
               v-for="p in ['month', 'quarter', 'year']"
               :key="p"
               class="cursor-pointer flex-1 sm:flex-none px-2 sm:px-6 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ease-out whitespace-nowrap"
@@ -15,12 +15,12 @@
               @click="changePeriod(p)"
           >
             {{ p === 'month' ? 'Mois' : p === 'quarter' ? 'Trimestre' : 'Année' }}
-          </button>
+          </Button>
 
           <div v-if="period === 'year'" class="hidden sm:block h-4 w-px bg-gray-300 dark:bg-neutral-600 mx-1"/>
 
           <div v-if="period === 'year'" class="relative w-full sm:w-auto mt-2 sm:mt-0">
-            <button
+            <Button
                 class="cursor-pointer flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 px-4 py-2 text-sm font-bold text-primary-600 dark:bg-neutral-700 rounded-lg shadow-md transition-all"
                 @click="isYearMenuOpen = !isYearMenuOpen"
             >
@@ -31,13 +31,13 @@
                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                       clip-rule="evenodd"/>
               </svg>
-            </button>
+            </Button>
 
             <div
                 v-if="isYearMenuOpen"
                 class="absolute top-full mt-2 right-0 w-full sm:w-32 bg-white dark:bg-neutral-700 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-700 overflow-hidden z-50"
             >
-              <button
+              <Button
                   v-for="annee in anneesData?.years"
                   :key="annee"
                   class="cursor-pointer w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
@@ -45,13 +45,13 @@
                   @click="selectYear(annee)"
               >
                 {{ annee }}
-              </button>
+              </Button>
             </div>
           </div>
           <div v-if="period === 'month'" class="hidden sm:block h-4 w-px bg-gray-300 dark:bg-neutral-600 mx-1"/>
 
           <div v-if="period === 'month'" class="relative w-full sm:w-auto mt-2 sm:mt-0">
-            <button
+            <Button
                 class="cursor-pointer flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 px-4 py-2 text-sm font-bold text-primary-600 dark:bg-neutral-700 rounded-lg shadow-md transition-all"
                 @click="isMonthMenuOpen = !isMonthMenuOpen"
             >
@@ -62,13 +62,13 @@
                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                       clip-rule="evenodd"/>
               </svg>
-            </button>
+            </Button>
 
             <div
                 v-if="isMonthMenuOpen"
                 class="absolute top-full mt-2 right-0 w-full sm:w-32 bg-white dark:bg-neutral-700 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-700 overflow-hidden z-50"
             >
-              <button
+              <Button
                   v-for="mois in moisData?.months"
                   :key="mois"
                   class="cursor-pointer w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
@@ -76,13 +76,13 @@
                   @click="selectMonth(mois)"
               >
                 {{ monthNames[mois - 1] }}
-              </button>
+              </Button>
             </div>
           </div>
           <div v-if="period === 'quarter'" class="hidden sm:block h-4 w-px bg-gray-300 dark:bg-neutral-600 mx-1"/>
 
           <div v-if="period === 'quarter'" class="relative w-full sm:w-auto mt-2 sm:mt-0">
-            <button
+            <Button
                 class="cursor-pointer flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 px-4 py-2 text-sm font-bold text-primary-600 dark:bg-neutral-700 rounded-lg shadow-md transition-all"
                 @click="isQuarterMenuOpen = !isQuarterMenuOpen"
             >
@@ -93,13 +93,13 @@
                       d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                       clip-rule="evenodd"/>
               </svg>
-            </button>
+            </Button>
 
             <div
                 v-if="isQuarterMenuOpen"
                 class="absolute top-full mt-2 right-0 w-full sm:w-32 bg-white dark:bg-neutral-700 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-700 overflow-hidden z-50"
             >
-              <button
+              <Button
                   v-for="trimestre in trimestresData?.quarters"
                   :key="trimestre"
                   class="cursor-pointer w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
@@ -107,7 +107,7 @@
                   @click="selectQuarter(trimestre)"
               >
                 {{ quarterLabels[trimestre] }}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -171,11 +171,7 @@
             <CardDescription class="text-neutral-500 dark:text-neutral-400">Comparatif des volumes</CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer v-if="cleanTransactions.length === 0" class="flex items-center justify-center"
-                            :config="chartConfig">
-              <p>Aucune donnée.</p>
-            </ChartContainer>
-            <ChartContainer v-else class="h-[350px]" :config="chartConfig">
+            <ChartContainer class="h-[350px]" :config="chartConfig">
               <VisXYContainer :data="incomeVsExpensesData">
                 <VisStackedBar
                     :x="(d,i) => i"
@@ -185,7 +181,6 @@
                 />
                 <VisAxis
                     type="x"
-                    :num-ticks="3"
                     :tick-line="false"
                     :domain-line="false"
                     :grid-line="false"
@@ -401,22 +396,54 @@ const cleanTransactions = computed(() => {
  */
 const incomeVsExpensesData = computed(() => {
   const groupedData = new Map();
-  const useMonthlyGrouping = period.value === 'year' || period.value === 'quarter';
 
+  // --- ÉTAPE A : PRÉ-REMPLISSAGE (Initialization) ---
+
+  if (period.value === 'year') {
+    // Fill all 12 months of the year
+    for (let i = 0; i < 12; i++) {
+      const monthLabel = new Date(selectedYear.value, i, 1)
+          .toLocaleString('fr-FR', { month: 'short' });
+      groupedData.set(monthLabel, { income: 0, expense: 0 });
+    }
+  }
+  else if (period.value === 'quarter') {
+    // Fill the 3 months of the specific quarter
+    const startMonth = (selectedQuarter.value - 1) * 3;
+    for (let i = 0; i < 3; i++) {
+      const monthLabel = new Date(selectedYear.value, startMonth + i, 1)
+          .toLocaleString('fr-FR', { month: 'short' });
+      groupedData.set(monthLabel, { income: 0, expense: 0 });
+    }
+  }
+  else if (period.value === 'month') {
+    // Fill all days of the specific month
+    const daysInMonth = new Date(selectedYear.value, selectedMonth.value, 0).getDate();
+    for (let i = 1; i <= daysInMonth; i++) {
+      const dayLabel = new Date(selectedYear.value, selectedMonth.value - 1, i)
+          .toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+      groupedData.set(dayLabel, { income: 0, expense: 0 });
+    }
+  }
+
+  // --- ÉTAPE B : REMPLISSAGE (Injection) ---
   cleanTransactions.value.forEach(t => {
+    const useMonthlyGrouping = period.value === 'year' || period.value === 'quarter';
     const key = useMonthlyGrouping
-        ? t.dateObj.toLocaleString('fr-FR', {month: 'short'})
-        : t.dateObj.toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit'});
+        ? t.dateObj.toLocaleString('fr-FR', { month: 'short' })
+        : t.dateObj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
 
-    if (!groupedData.has(key)) groupedData.set(key, {income: 0, expense: 0});
-
-    if (t.typeStr === 'income' || t.typeTransactionsId === 1) {
-      groupedData.get(key).income += t.amount;
-    } else {
-      groupedData.get(key).expense += t.amount;
+    if (groupedData.has(key)) {
+      const entry = groupedData.get(key);
+      if (t.typeStr === 'income' || t.typeTransactionsId === 1) {
+        entry.income += t.amount;
+      } else {
+        entry.expense += t.amount;
+      }
     }
   });
 
+  // --- ÉTAPE C : CONVERSION ---
   return Array.from(groupedData, ([periodLabel, dataBar]) => ({
     dateLabel: periodLabel,
     ...dataBar
