@@ -6,7 +6,7 @@
         <div class="flex items-center justify-between h-16">
 
           <div class="flex items-center">
-            <Button class="text-xl font-semibold text-primary-600 dark:text-primary-400">
+            <Button class="text-xl font-semibold text-primary-600 dark:text-primary-600">
               <NuxtLink to="/">AirGap</NuxtLink>
             </Button>
           </div>
@@ -42,7 +42,7 @@
                       class="cursor-pointer flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                       @click="toggleDropdown">
                     <span class="text-sm text-neutral-700 dark:text-neutral-300">{{
-                        user?.name || 'Utilisateur'
+                        users?.name || 'Utilisateur'
                       }}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ import {ref, watch, onMounted, onUnmounted} from 'vue';
 import {Home, ArrowRightLeft, PieChart, User, Sun, Moon} from 'lucide-vue-next'
 import { Button } from '~/components/ui/button';
 
-const {loggedIn, user, clear: clearSession} = useUserSession();
+const {loggedIn, users, clear: clearSession} = useUserSession();
 const isDarkTheme = ref(false);
 const isDropdownOpen = ref(false);
 

@@ -7,27 +7,27 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div
-            class="card bg-linear-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 border-primary-200 dark:border-primary-800 p-4 rounded-lg shadow-sm border">
-          <h3 class="text-lg font-medium text-primary-700 dark:text-primary-300 mb-1">Solde total</h3>
+            class="card p-4 rounded-lg shadow-sm border">
+          <h3 class="text-lg font-medium mb-1">Solde total</h3>
           <div v-if="loading" class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"/>
-          <p v-else class="text-3xl font-bold text-primary-800 dark:text-primary-200">{{ formatCurrency(balance) }}</p>
+          <p v-else class="text-3xl font-bold text-primary-600">{{ formatCurrency(balance) }}</p>
 
           <div v-if="!loading && balanceChange !== null" class="mt-2 text-sm"
-               :class="balanceChange >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+               :class="balanceChange >= 0 ? 'text-primary-600 dark:text-primary-600' : 'text-primary-550 dark:text-primary-550'">
             <span>{{ formatPercent(balanceChange) }}</span> vs mois dernier
           </div>
         </div>
 
         <div
             class="card p-4 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-800">
-          <h3 class="text-lg font-medium text-neutral-700 dark:text-neutral-300 mb-1">Revenus (ce mois)</h3>
+          <h3 class="text-lg font-medium dark:text-neutral-300 mb-1">Revenus (ce mois)</h3>
           <div v-if="loading" class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"/>
-          <p v-else class="text-3xl font-bold text-green-600 dark:text-green-400">{{
+          <p v-else class="text-3xl font-bold text-primary-600 dark:text-primary-600">{{
               formatCurrency(monthlyIncome)
             }}</p>
 
           <div v-if="!loading && incomeChange !== null" class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-            <span :class="incomeChange >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+            <span :class="incomeChange >= 0 ? 'text-primary-600 dark:text-primary-600' : 'text-primary-550 dark:text-primary-550'">
               {{ formatPercent(incomeChange) }}
             </span> vs mois dernier
           </div>
@@ -37,10 +37,10 @@
             class="card p-4 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-800">
           <h3 class="text-lg font-medium text-neutral-700 dark:text-neutral-300 mb-1">Dépenses (ce mois)</h3>
           <div v-if="loading" class="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"/>
-          <p v-else class="text-3xl font-bold text-red-600 dark:text-red-400">{{ formatCurrency(monthlyExpense) }}</p>
+          <p v-else class="text-3xl font-bold text-primary-550 dark:text-primary-550">{{ formatCurrency(monthlyExpense) }}</p>
 
           <div v-if="!loading && expenseChange !== null" class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-            <span :class="expenseChange <= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+            <span :class="expenseChange <= 0 ? 'text-green-600 dark:text-green-600' : 'text-primary-550 dark:text-primary-550'">
               {{ formatPercent(expenseChange) }}
             </span> vs mois dernier
           </div>

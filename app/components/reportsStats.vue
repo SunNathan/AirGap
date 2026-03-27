@@ -1,8 +1,10 @@
 <template>
   <div class="pt-4 pb-8 px-4">
     <div class="max-w-7xl mx-auto">
+
       <div class="flex justify-center mb-10 w-full">
-        <div class="bg-gray-50 dark:bg-neutral-800/50 p-1.5 rounded-lg flex flex-wrap justify-center items-center gap-2 border border-gray-200 dark:border-neutral-700 backdrop-blur-sm z-20 w-full sm:w-auto">
+        <div
+            class="bg-gray-50 dark:bg-neutral-800/50 p-1.5 rounded-lg flex flex-wrap justify-center items-center gap-2 border border-gray-200 dark:border-neutral-700 backdrop-blur-sm z-20 w-full sm:w-auto">
           <button
               v-for="p in ['month', 'quarter', 'year']"
               :key="p"
@@ -23,8 +25,11 @@
                 @click="isYearMenuOpen = !isYearMenuOpen"
             >
               {{ selectedYear }}
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" :class="isYearMenuOpen ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform"
+                   :class="isYearMenuOpen ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"/>
               </svg>
             </button>
 
@@ -51,8 +56,11 @@
                 @click="isMonthMenuOpen = !isMonthMenuOpen"
             >
               {{ monthNames[selectedMonth - 1] }}
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" :class="isMonthMenuOpen ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform"
+                   :class="isMonthMenuOpen ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"/>
               </svg>
             </button>
 
@@ -75,12 +83,15 @@
 
           <div v-if="period === 'quarter'" class="relative w-full sm:w-auto mt-2 sm:mt-0">
             <button
-                class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 px-4 py-2 text-sm font-bold text-primary-600 dark:bg-neutral-700 rounded-lg shadow-md transition-all"
+                class="cursor-pointer flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 px-4 py-2 text-sm font-bold text-primary-600 dark:bg-neutral-700 rounded-lg shadow-md transition-all"
                 @click="isQuarterMenuOpen = !isQuarterMenuOpen"
             >
               {{ quarterLabels[selectedQuarter] }}
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" :class="isQuarterMenuOpen ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform"
+                   :class="isQuarterMenuOpen ? 'rotate-180' : ''" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"/>
               </svg>
             </button>
 
@@ -102,164 +113,275 @@
         </div>
       </div>
 
-      <div class="card mb-8 p-8 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
-        <div class="flex justify-between items-end mb-8">
-          <div>
-            <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Cashflow</h3>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">Visualisation des mouvements financiers</p>
-          </div>
-        </div>
-        <ClientOnly>
-          <div v-if="filteredTransactions.length ===0" class="flex items-center justify-center">
-            <p>Aucune données.</p>
-          </div>
-          <div v-else class="h-[450px] relative">
-            <canvas ref="sankeyChart" class="max-h-full w-full"/>
-          </div>
-        </ClientOnly>
-      </div>
+      <Card
+          class="card mb-8 p-8 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
+        <CardHeader class="flex justify-between items-end mb-8">
+          <CardTitle class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Cashflow</CardTitle>
+          <CardDescription class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">Visualisation des mouvements
+            financiers
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ClientOnly>
+            <div v-if="cleanTransactions.length === 0" class="flex items-center justify-center">
+              <p>Aucune donnée.</p>
+            </div>
+            <div v-else class="flex flex-col h-full w-full dark:unovis-dark-mode">
+              <p class="text-xs text-neutral-400 mb-2 italic text-center">
+                💡 Cliquez sur un nœud pour déployer le détail des transactions.
+              </p>
+              <ChartContainer :config="chartConfig">
+                <VisSingleContainer :data="cashFlow" class="h-full w-full sankeyGraph">
+                  <VisSankey
+                      :node-id="(d) => d.id"
+                      :node-label="(d) => d.label"
+                      :node-icon="(d) => {
+                        if (d.type === 'expense') {
+                          return activeCategory === d.id ? '-' : '+';
+                        }
+                        return '';
+                      }"
+                      :source="(d) => d.source"
+                      :target="(d) => d.target"
+                      :value="(d) => d.value"
+                      :node-color="(node) => {
+                        if (node.type === 'budget') return THEME.colors.expense;
+                        if (node.type === 'income') return THEME.colors.expense;
+                        if (node.type === 'expense') return THEME.colors.expense;
+                        return THEME.colors.income;
+                      }"
+                      :node-width="20"
+                      :node-padding="15"
+                      :events="sankeyEvents"
+                  />
+                  <ChartTooltip/>
+                </VisSingleContainer>
+              </ChartContainer>
+            </div>
+          </ClientOnly>
+        </CardContent>
+      </Card>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <div class="card p-8 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
-          <div class="mb-8">
-            <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Revenus vs Dépenses</h3>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">Comparatif des volumes</p>
-          </div>
-          <ClientOnly>
-            <div v-if="filteredTransactions.length === 0" class="flex items-center justify-center">
-              <p>Aucune données.</p>
-            </div>
-            <div v-else class="h-[350px] relative">
-              <canvas ref="incomeExpenseChart" class="max-h-full"/>
-            </div>
-          </ClientOnly>
-        </div>
 
-        <div class="card p-8 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
-          <div class="mb-8">
-            <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Solde du compte</h3>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">Évolution du solde réel</p>
-          </div>
-          <ClientOnly>
-            <div class="h-[350px] relative">
-              <canvas ref="balanceChart" class="max-h-full"/>
-            </div>
-          </ClientOnly>
-        </div>
+        <Card
+            class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
+          <CardHeader>
+            <CardTitle class="text-neutral-900 dark:text-white tracking-tight">Revenus vs Dépenses</CardTitle>
+            <CardDescription class="text-neutral-500 dark:text-neutral-400">Comparatif des volumes</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer v-if="cleanTransactions.length === 0" class="flex items-center justify-center"
+                            :config="chartConfig">
+              <p>Aucune donnée.</p>
+            </ChartContainer>
+            <ChartContainer v-else class="h-[350px]" :config="chartConfig">
+              <VisXYContainer :data="incomeVsExpensesData">
+                <VisStackedBar
+                    :x="(d,i) => i"
+                    :y="[(d) => d.income, (d) => d.expense]"
+                    :color="(d, i) => [THEME.colors.income, THEME.colors.expense][i]"
+                    :barPadding="0.4"
+                />
+                <VisAxis
+                    type="x"
+                    :num-ticks="3"
+                    :tick-line="false"
+                    :domain-line="false"
+                    :grid-line="false"
+                    :tick-format="(index) => incomeVsExpensesData[index]?.dateLabel"
+                />
+                <VisAxis
+                    type="y"
+                    :num-ticks="3"
+                    :tick-line="false"
+                    :domain-line="false"
+                />
+                <ChartTooltip/>
+                <ChartCrosshair
+                    :template="componentToString(chartConfig, ChartTooltipContent, { labelKey: 'dateLabel' })"
+                    :color="(d, i) => [THEME.colors.income, THEME.colors.expense][i]"
+                />
+              </VisXYContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        <Card
+            class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
+          <CardHeader>
+            <CardTitle class="text-neutral-900 dark:text-white tracking-tight">Solde du compte</CardTitle>
+            <CardDescription class="text-neutral-500 dark:text-neutral-400">Évolution du solde réel</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer class="h-[350px]" :config="chartConfig">
+              <VisXYContainer :data="currentYearBalanceData">
+                <VisArea
+                    :x="(d, i) => i"
+                    :y="[(d) => d.balance]"
+                    :color="() => chartConfig.balance.color"
+                    :opacity="0.3"
+                />
+                <VisLine
+                    :x="(d, i) => i"
+                    :y="[(d) => d.balance]"
+                    :color="() => chartConfig.balance.color"
+                    :line-width="2.5"
+                />
+                <VisAxis
+                    type="x"
+                    :x="(d, i) => i"
+                    :tick-line="false"
+                    :domain-line="false"
+                    :grid-line="false"
+                    :num-ticks="6"
+                    :tick-format="(d, i) => {
+                    return currentYearBalanceData[i]?.dateLabel;
+                  }"
+                />
+                <VisAxis
+                    type="y"
+                    :num-ticks="5"
+                    :tick-line="false"
+                    :domain-line="false"
+                />
+                <ChartTooltip/>
+                <ChartCrosshair
+                    :template="componentToString(chartConfig, ChartTooltipContent, { labelKey: 'dateLabel' })"
+                    :color="() => chartConfig.balance.color"
+                />
+              </VisXYContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
       </div>
+
     </div>
   </div>
 </template>
 
 <script setup>
-import { Chart, registerables } from "chart.js";
-import { SankeyController, Flow } from 'chartjs-chart-sankey';
-import { ref, computed, onMounted, watch, nextTick } from 'vue';
+import {ref, computed} from 'vue';
+import {VisStackedBar, VisArea, VisAxis, VisLine, VisXYContainer, VisSankey, VisSingleContainer} from "@unovis/vue";
+import {Sankey} from "@unovis/ts";
+import {ChartContainer, ChartCrosshair, ChartTooltip, ChartTooltipContent} from "@/components/ui/chart";
+import {componentToString} from "@/components/ui/chart/utils";
 
-// --- CONFIGURATION ---
+// =========================================================================
+// 1. CONSTANTS & CONFIGURATION
+// =========================================================================
+
 const CURRENT_YEAR_FIXED = new Date().getFullYear();
-const isYearMenuOpen = ref(false);
 const CURRENT_MONTH_FIXED = new Date().getMonth() + 1;
-const isMonthMenuOpen = ref(false);
 const CURRENT_QUARTER_FIXED = Math.floor(new Date().getMonth() / 3) + 1;
-const isQuarterMenuOpen = ref(false);
+
 const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-const quarterLabels = { 1: "Jan. - Mars", 2: "Avr. - Juin", 3: "Juil. - Sept.", 4: "Oct. - Déc." };
-
-const { data: anneesData } = await useFetch('/api/calendar/years');
-const selectedYear = ref(CURRENT_YEAR_FIXED);
-const { data: transactionsYearsData } = await useFetch('/api/calendar/', {
-  query: { year: selectedYear},
-  watch: [selectedYear],
-});
-
-const { data: transactionsFixed2026Data } = await useFetch('/api/calendar/', {
-  query: { year: CURRENT_YEAR_FIXED },
-});
-
-const { data: trimestresData } = await useFetch('/api/calendar/quarters');
-const selectedQuarter = ref(CURRENT_QUARTER_FIXED);
-const { data: transactionsQuarterData } = await useFetch('/api/calendar/', {
-  query: { quarter: selectedQuarter, year: selectedYear },
-  watch: [selectedQuarter, selectedYear],
-});
-
-const { data: moisData } = await useFetch('/api/calendar/months');
-const selectedMonth = ref(CURRENT_MONTH_FIXED);
-const { data: transactionsMonthData } = await useFetch('/api/calendar/', {
-  query: {  month: selectedMonth, year: selectedYear },
-  watch: [selectedMonth, selectedYear],
-});
-
-// --- ACTIONS UI ---
-const changePeriod = (p) => {
-  if (period.value === p) return;
-  period.value = p;
-  if (p !== 'year') {
-    selectedYear.value = CURRENT_YEAR_FIXED;
-  }
-  if (p !== 'month') {
-    selectedMonth.value = CURRENT_MONTH_FIXED;
-  }
-};
-
-const selectYear = (annee) => {
-  selectedYear.value = annee;
-  isYearMenuOpen.value = false;
-};
-
-const selectMonth = (mois) => {
-  selectedMonth.value = mois;
-  isMonthMenuOpen.value = false;
-};
-
-const selectQuarter = (trimestre) => {
-  selectedQuarter.value = trimestre;
-  isQuarterMenuOpen.value = false;
-};
-
-Chart.register(...registerables, SankeyController, Flow);
-
-const props = defineProps({
-  transactions: { type: Array, required: false, default: () => [] }
-});
-
-// --- ÉTAT ---
-const period = ref('month');
-const incomeExpenseChart = ref(null);
-const balanceChart = ref(null);
-const sankeyChart = ref(null);
-const charts = { incomeExpense: null, balance: null, sankey: null };
+const quarterLabels = {1: "Jan. - Mars", 2: "Avr. - Juin", 3: "Juil. - Sept.", 4: "Oct. - Déc."};
 
 const THEME = {
   colors: {
-    income: '#34d399', expense: '#fb7185', balance: '#6366f1',
+    balance: '#7bf1a8', income: '#7bf1a8', expense: '#00a63e',
     textLight: '#64748b', textDark: '#94a3b8',
     gridLight: '#e2e8f0', gridDark: '#334155',
     cardBgLight: '#ffffff', cardBgDark: 'rgba(51,65,85,0)',
   }
 };
 
+const chartConfig = {
+  balance: {label: "Solde", color: THEME.colors.balance},
+  income: {label: "Revenus", color: THEME.colors.income},
+  expense: {label: "Dépenses", color: THEME.colors.expense}
+};
+
 // =========================================================================
-// LOGIQUE A : DYNAMIQUE (Bar Chart & Sankey)
+// 2. REACTIVE STATE
 // =========================================================================
 
-const cleanTransactions = computed(() => {
-  let rawData = [];
+const period = ref('month');
+const selectedYear = ref(CURRENT_YEAR_FIXED);
+const selectedMonth = ref(CURRENT_MONTH_FIXED);
+const selectedQuarter = ref(CURRENT_QUARTER_FIXED);
 
-  switch (period.value) {
-    case 'year':
-      rawData = transactionsYearsData.value?.transactions;
-      break;
-    case 'month':
-      rawData = transactionsMonthData.value?.transactions;
-      break;
-    case 'quarter':
-      rawData = transactionsQuarterData.value?.transactions;
-      break;
+const isYearMenuOpen = ref(false);
+const isMonthMenuOpen = ref(false);
+const isQuarterMenuOpen = ref(false);
+const activeCategory = ref(null);
+
+// =========================================================================
+// 3. API FETCHING
+// =========================================================================
+
+// Fetch static calendar options
+const {data: anneesData} = await useFetch('/api/calendar/years');
+const {data: trimestresData} = await useFetch('/api/calendar/quarters');
+const {data: moisData} = await useFetch('/api/calendar/months');
+
+// Dynamic query parameters that trigger re-fetch when filters change
+const queryParams = computed(() => {
+  const params = {year: selectedYear.value};
+
+  if (period.value === 'month') {
+    params.month = selectedMonth.value;
+  } else if (period.value === 'quarter') {
+    params.quarter = selectedQuarter.value;
   }
 
-  if (!rawData || rawData.length === 0) return [];
+  return params;
+});
+
+// Primary data fetch (reacts to queryParams)
+const {data: transactionsData} = await useFetch('/api/calendar/', {
+  key: 'dynamic-transactions',
+  query: queryParams,
+  watch: [queryParams]
+});
+
+// Secondary data fetch (fixed for the full year line chart)
+const {data: transactionsFixed2026Data} = await useFetch('/api/calendar/', {
+  key: 'fixed-balance',
+  query: {year: CURRENT_YEAR_FIXED},
+});
+
+// =========================================================================
+// 4. UI ACTIONS
+// =========================================================================
+
+const changePeriod = (p) => {
+  if (period.value === p) return;
+  period.value = p;
+
+  // Reset expanded Sankey node
+  activeCategory.value = null;
+
+  // Reset inactive filters to the current calendar date
+  if (p !== 'year') selectedYear.value = CURRENT_YEAR_FIXED;
+  if (p !== 'month') selectedMonth.value = CURRENT_MONTH_FIXED;
+  if (p !== 'quarter') selectedQuarter.value = CURRENT_QUARTER_FIXED;
+};
+
+const selectYear = (annee) => {
+  selectedYear.value = annee;
+  isYearMenuOpen.value = false;
+};
+const selectMonth = (mois) => {
+  selectedMonth.value = mois;
+  isMonthMenuOpen.value = false;
+};
+const selectQuarter = (trimestre) => {
+  selectedQuarter.value = trimestre;
+  isQuarterMenuOpen.value = false;
+};
+
+// =========================================================================
+// 5. DATA PROCESSING (CHARTS)
+// =========================================================================
+
+/**
+ * Normalizes raw API data and sorts it chronologically.
+ */
+const cleanTransactions = computed(() => {
+  const rawData = transactionsData.value?.transactions || [];
+  if (rawData.length === 0) return [];
 
   return rawData.map(t => {
     const d = new Date(t.date);
@@ -270,70 +392,117 @@ const cleanTransactions = computed(() => {
       amount: Math.abs(Number(t.amount)),
       typeStr: t.typeStr || (Number(t.amount) >= 0 ? 'income' : 'expense'),
     };
-  });
+  }).sort((a, b) => a.dateObj - b.dateObj);
 });
 
-const filteredTransactions = computed(() => {
-  const list = cleanTransactions.value;
-  if (!list.length) return [];
-
-  return list.sort((a, b) => a.dateObj - b.dateObj);
-});
-
-const getIncomeVsExpensesData = () => {
+/**
+ * Aggregates income and expenses for the Stacked Bar Chart.
+ * Groups by day (if month view) or by month (if quarter/year view).
+ */
+const incomeVsExpensesData = computed(() => {
   const groupedData = new Map();
   const useMonthlyGrouping = period.value === 'year' || period.value === 'quarter';
 
-  filteredTransactions.value.forEach(t => {
-    let key;
-    if (useMonthlyGrouping) key = t.dateObj.toLocaleString('fr-FR', { month: 'short' });
-    else key = t.dateObj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+  cleanTransactions.value.forEach(t => {
+    const key = useMonthlyGrouping
+        ? t.dateObj.toLocaleString('fr-FR', {month: 'short'})
+        : t.dateObj.toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit'});
 
-    if (!groupedData.has(key)) groupedData.set(key, { income: 0, expense: 0 });
-    if (t.typeStr === 'income' || t.typeTransactionsId === 1) groupedData.get(key).income += t.amount;
-    else groupedData.get(key).expense += t.amount;
+    if (!groupedData.has(key)) groupedData.set(key, {income: 0, expense: 0});
+
+    if (t.typeStr === 'income' || t.typeTransactionsId === 1) {
+      groupedData.get(key).income += t.amount;
+    } else {
+      groupedData.get(key).expense += t.amount;
+    }
   });
 
-  return {
-    labels: Array.from(groupedData.keys()),
-    datasets: [
-      { label: 'Revenus', data: Array.from(groupedData.values()).map(v => v.income), backgroundColor: THEME.colors.income, borderRadius: 3 },
-      { label: 'Dépenses', data: Array.from(groupedData.values()).map(v => v.expense), backgroundColor: THEME.colors.expense, borderRadius: 3 }
-    ]
-  };
-};
+  return Array.from(groupedData, ([periodLabel, dataBar]) => ({
+    dateLabel: periodLabel,
+    ...dataBar
+  }));
+});
 
-const getSankeyData = () => {
-  const incomeCats = {};
+/**
+ * Builds nodes and links for the Unovis Sankey graph.
+ * Incomes are mapped directly, expenses are grouped by category (expandable).
+ */
+const cashFlow = computed(() => {
+  if (import.meta.server || !cleanTransactions.value.length) {
+    return {nodes: [], links: []};
+  }
+
+  const nodes = [{id: 'center_budget', label: 'Mon Budget', type: 'budget'}];
+  const links = [];
   const expenseCats = {};
+  let incomeIndex = 0;
 
-  filteredTransactions.value.forEach(t => {
-    const cat = t.categoryName || 'Autre';
+  cleanTransactions.value.forEach(t => {
     const val = Math.abs(t.amount);
 
     if (t.typeStr === 'income' || t.typeTransactionsId === 1) {
-      incomeCats[cat] = (incomeCats[cat] || 0) + val;
+      // Incomes stream directly to the center
+      const id = `income_t_${incomeIndex++}`;
+      const label = `${t.name || t.categoryName || 'Revenu'} (${val}€)`;
+
+      nodes.push({id, label, type: 'income'});
+      links.push({source: id, target: 'center_budget', value: val});
     } else {
+      // Expenses are aggregated by category first
+      let cat = t.categoryName || 'Autre';
+      if (cat.toLowerCase() === 'budget') cat = 'Budget (Cat)';
       expenseCats[cat] = (expenseCats[cat] || 0) + val;
     }
   });
 
-  const data = [];
-  Object.entries(incomeCats).forEach(([c, v]) => data.push({ from: c, to: 'Budget', flow: v }));
-  Object.entries(expenseCats).forEach(([c, v]) => data.push({ from: 'Budget', to: c, flow: v }));
+  // Add aggregated expense nodes
+  Object.entries(expenseCats).forEach(([name, value]) => {
+    if (value > 0) {
+      const id = `${name}_out`;
+      nodes.push({id, label: name, type: 'expense'});
+      links.push({source: 'center_budget', target: id, value});
 
-  return data;
+      // If category is clicked (active), deploy its sub-transactions
+      if (activeCategory.value === id) {
+        const subs = cleanTransactions.value.filter(t =>
+            (t.categoryName || 'Autre') === name && t.typeStr !== 'income' && t.typeTransactionsId !== 1
+        );
+
+        subs.forEach((t, i) => {
+          const subId = `${id}_sub_${i}`;
+          nodes.push({id: subId, label: `${t.name || 'Transaction'} (${Math.abs(t.amount)}€)`, type: 'sub'});
+          links.push({source: id, target: subId, value: Math.abs(t.amount)});
+        });
+      }
+    }
+  });
+
+  return {nodes, links};
+});
+
+const handleNodeClick = (node) => {
+  const data = node?.id ? node : node?.object;
+  // Ensure only expense categories are expandable (incomes are already deployed)
+  if (data?.type === 'expense') {
+    activeCategory.value = activeCategory.value === data.id ? null : data.id;
+  }
 };
 
-// =========================================================================
-// LOGIQUE B : STATIQUE (Line Chart)
-// =========================================================================
+const sankeyEvents = {
+  [Sankey.selectors.node]: {
+    click: (node) => handleNodeClick(node)
+  }
+};
 
+/**
+ * Calculates the cumulative balance for the Line/Area chart.
+ * Uses fixed annual data regardless of the currently selected period.
+ */
 const currentYearBalanceData = computed(() => {
   const source = transactionsFixed2026Data.value?.transactions || [];
   const initialBalance = transactionsFixed2026Data.value?.initialBalance || 0;
 
-  if (!source.length && initialBalance === 0) return { labels: [], datasets: [] };
+  if (!source.length && initialBalance === 0) return [];
 
   const mapped = source.map(t => {
     const rawAmount = Number(t.amount);
@@ -348,7 +517,7 @@ const currentYearBalanceData = computed(() => {
   const dailyMap = new Map();
 
   const startDate = new Date(selectedYear.value, 0, 1);
-  const startKey = startDate.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+  const startKey = startDate.toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit'});
 
   dailyMap.set(startKey, initialBalance);
 
@@ -357,264 +526,41 @@ const currentYearBalanceData = computed(() => {
     else runningBalance -= t.amount;
 
     if (t.dateObj.getFullYear() === selectedYear.value) {
-      const dateKey = t.dateObj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+      const dateKey = t.dateObj.toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit'});
       dailyMap.set(dateKey, runningBalance);
     }
   });
 
   const now = new Date();
-  if(now.getFullYear() === selectedYear.value) {
-    const todayKey = now.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+  if (now.getFullYear() === selectedYear.value) {
+    const todayKey = now.toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit'});
     dailyMap.set(todayKey, runningBalance);
   }
 
-  return {
-    labels: Array.from(dailyMap.keys()),
-    datasets: [{
-      label: `Solde ${CURRENT_YEAR_FIXED}`,
-      data: Array.from(dailyMap.values()),
-      borderColor: THEME.colors.balance,
-      borderWidth: 3,
-      backgroundColor: (ctx) => {
-        const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(99, 102, 241, 0.3)');
-        gradient.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
-        return gradient;
-      },
-      fill: true,
-      tension: 0.4,
-      pointRadius: 0,
-      pointHoverRadius: 6,
-      pointBackgroundColor: '#ffffff',
-      pointBorderColor: THEME.colors.balance,
-      pointBorderWidth: 2,
-      pointHitRadius: 20
-    }]
-  };
-});
-
-// =========================================================================
-// RENDU GRAPHIQUE
-// =========================================================================
-
-const renderDynamicCharts = () => {
-  if (import.meta.server) return;
-  if (!cleanTransactions.value.length) return;
-
-  const isDark = document.documentElement.classList.contains('dark');
-  const commonOptions = getChartConfig(isDark);
-
-  drawIncomeExpenseChart(commonOptions);
-  drawSankeyChart(isDark, commonOptions);
-};
-
-const getChartConfig = (isDark) => {
-  const textColor = isDark ? THEME.colors.textDark : THEME.colors.textLight;
-  const gridColor = isDark ? THEME.colors.gridDark : THEME.colors.gridLight;
-
-  return {
-    responsive: true,
-    maintainAspectRatio: false,
-    font: { family: THEME.font },
-    plugins: {
-      legend: {
-        align: 'end',
-        labels: {
-          color: textColor,
-          usePointStyle: true,
-          boxWidth: 8,
-          padding: 20
-        }
-      },
-      tooltip: {
-        backgroundColor: isDark ? '#1e293b' : '#ffffff',
-        titleColor: isDark ? '#f1f5f9' : '#1e293b',
-        bodyColor: isDark ? '#94a3b8' : '#64748b',
-        borderColor: isDark ? '#334155' : '#e2e8f0',
-        borderWidth: 1,
-        padding: 12,
-        displayColors: true,
-        callbacks: {
-          label: (ctx) => {
-            let label = ctx.dataset.label || '';
-
-            if (label) {
-              label += ': ';
-            }
-
-            if (ctx.parsed.y !== null) {
-              label += new Intl.NumberFormat('fr-FR', {
-                style: 'currency',
-                currency: 'EUR'
-              }).format(ctx.parsed.y);
-            }
-
-            return label;
-          }
-        }
-      }
-    },
-    scales: {
-      x: {
-        grid: { display: false },
-        ticks: { color: textColor, font: { family: THEME.font, size: 11 } }
-      },
-      y: {
-        border: { display: false },
-        grid: { color: gridColor, borderDash: [4, 4], drawBorder: false },
-        ticks: {
-          color: textColor,
-          padding: 10,
-          font: { family: THEME.font, size: 11, weight: 500 },
-          callback: (v) => new Intl.NumberFormat('fr-FR', {
-            style: 'currency',
-            currency: 'EUR',
-            maximumFractionDigits: 0
-          }).format(v)
-        }
-      }
-    }
-  };
-};
-
-const getSankeyChartConfig = (sData, isDark, commonOptions) => {
-  return {
-    type: 'sankey',
-    data: {
-      datasets: [{
-        data: sData,
-        colorFrom: (c) => c.dataset.data[c.dataIndex].from === 'Budget' ? THEME.colors.expense : THEME.colors.income,
-        colorTo: (c) => c.dataset.data[c.dataIndex].to === 'Budget' ? THEME.colors.income : THEME.colors.expense,
-        alpha: 0.6,
-        size: 'max',
-        borderWidth: 8,
-        borderColor: isDark ? THEME.colors.cardBgDark : THEME.colors.cardBgLight,
-        nodeWidth: 12,
-        nodePadding: 30,
-        color: isDark ? '#e2e8f0' : '#334155',
-        labels: {
-          color: isDark ? '#e2e8f0' : '#334155',
-          font: { size: 12, weight: 'bold' }
-        }
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      layout: { padding: 20 },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          ...commonOptions.plugins.tooltip,
-          callbacks: {
-            label: (context) => {
-              const item = context.raw;
-              if (!item) return '';
-              const val = new Intl.NumberFormat('fr-FR', {
-                style: 'currency', currency: 'EUR'
-              }).format(item.flow);
-              return `${item.from} → ${item.to} : ${val}`;
-            },
-            title: (context) => {
-              const item = context[0].raw;
-              return `${item.from} vers ${item.to}`;
-            }
-          }
-        }
-      }
-    }
-  };
-};
-
-const drawSankeyChart = (isDark, commonOptions) => {
-  if (charts.sankey) {
-    charts.sankey.destroy();
-    charts.sankey = null;
-  }
-
-  if (!sankeyChart.value) return;
-
-  const sData = getSankeyData();
-  if (!sData.length) return;
-
-  const config = getSankeyChartConfig(sData, isDark, commonOptions);
-  charts.sankey = new Chart(sankeyChart.value, config);
-};
-
-const renderBalanceChart = () => {
-  if (import.meta.server) return;
-
-  if (!currentYearBalanceData.value.labels.length) return;
-
-  const isDark = document.documentElement.classList.contains('dark');
-  const commonOptions = getChartConfig(isDark);
-
-  if(charts.balance) {
-    charts.balance.destroy();
-  }
-
-  if (balanceChart.value) {
-    charts.balance = new Chart(balanceChart.value, {
-      type: 'line',
-      data: currentYearBalanceData.value,
-      options: {
-        ...commonOptions,
-        animation: {duration: 0},
-        interaction: { mode: 'index', intersect: false },
-        scales: { ...commonOptions.scales, y: { ...commonOptions.scales.y, beginAtZero: false } }
-      }
-    });
-  }
-};
-
-const drawIncomeExpenseChart = (commonOptions) => {
-  if (charts.incomeExpense) {
-    charts.incomeExpense.destroy();
-    charts.incomeExpense = null;
-  }
-
-  if (!incomeExpenseChart.value) return;
-
-  charts.incomeExpense = new Chart(incomeExpenseChart.value, {
-    type: 'bar',
-    data: getIncomeVsExpensesData(),
-    options: {
-      ...commonOptions,
-      scales: {
-        ...commonOptions.scales,
-        x: { ...commonOptions.scales.x, grid: { display: false } }
-      }
-    }
-  });
-};
-
-// --- WATCHERS ---
-watch([() => props.transactions, transactionsMonthData, transactionsQuarterData, period], () => {
-  nextTick(() => {
-    renderDynamicCharts();
-  });
-}, { deep: true, immediate: true });
-
-watch(transactionsFixed2026Data, () => {
-  nextTick(() => renderBalanceChart());
-}, { deep: true });
-
-onMounted(() => {
-  if (import.meta.client) {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((m) => {
-        if (m.attributeName === 'class') {
-          renderDynamicCharts();
-          renderBalanceChart();
-        }
-      });
-    });
-    observer.observe(document.documentElement, { attributes: true });
-
-    setTimeout(() => {
-      renderDynamicCharts();
-      renderBalanceChart();
-    }, 300);
-  }
+  return Array.from(dailyMap, ([dateLabel, balance]) => ({
+    dateLabel,
+    balance
+  }));
 });
 </script>
+
+<style>
+.sankeyGraph g rect {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.sankeyGraph path {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+/* Dark Mode overrides via Tailwind parent class */
+html.dark .sankeyGraph path {
+  opacity: 0.15 !important;
+}
+
+html.dark .sankeyGraph text {
+  fill: #ffffff !important;
+}
+</style>
