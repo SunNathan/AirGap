@@ -1,6 +1,6 @@
-import {eq} from 'drizzle-orm'
-import {db} from "#server/db";
-import {users} from "~~/drizzle/schema";
+import { eq } from "drizzle-orm";
+import { db } from "#server/db";
+import { users } from "~~/drizzle/schema";
 
 export const getUserByEmail = async (email: string) => {
     return await db.query.users.findFirst({
@@ -17,7 +17,6 @@ export const getUserById = async (userId: string) => {
             name: true,
             createdAt: true,
             updatedAt: true
-
         }
     });
 }
