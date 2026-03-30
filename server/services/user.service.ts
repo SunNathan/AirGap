@@ -44,3 +44,12 @@ export const updateUserPassword = async (userId: string, newHashedPassword: stri
         })
         .where(eq(users.id, userId));
 }
+
+export const updateUserProfile = async (userId: string, name: string) => {
+    return db.update(users)
+        .set({
+            name: name,
+            updatedAt: new Date()
+        })
+        .where(eq(users.id, userId));
+}
