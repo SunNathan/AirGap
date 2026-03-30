@@ -2,9 +2,9 @@
   <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center">
     <div class="fixed inset-0 dark:bg-neutral-900/60 backdrop-blur-sm" @click="closeModal"/>
 
-    <Card class="w-full max-w-md mx-auto relative">
+    <Card class="w-full max-w-md mx-auto relative bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-500 dark:border-neutral-700 hover:shadow-md transition-shadow duration-300">
       <CardHeader>
-        <CardTitle class="text-neutral-900 dark:text-neutral-50">
+        <CardTitle class="text-neutral-900 dark:text-white">
           {{ isEditing ? 'Modifier la transaction' : 'Nouvelle transaction' }}
         </CardTitle>
       </CardHeader>
@@ -51,13 +51,13 @@
                     value="income"
                     class="mr-2"
                 />
-                <Label for="income-menu" class="text-green-600 dark:text-green-400 font-medium">Revenu</Label>
+                <Label for="income-menu" class="text-primary-600 font-medium">Revenu</Label>
                 <RadioGroupItem
                     id="expense-menu"
                     value="expense"
                     class="mr-2"
                 />
-                <Label for="expense-menu" class="text-red-600 dark:text-red-400 font-medium">Dépense</Label>
+                <Label for="expense-menu" class="text-primary-550 font-medium">Dépense</Label>
               </div>
             </RadioGroup>
           </Field>
@@ -105,7 +105,7 @@
               <PopoverContent class="w-auto p-0" align="start">
                 <Calendar
                     v-model="form.date"
-                    class= "bg-neutral-700 cursor-pointer"
+                    class= "dark:bg-neutral-700 bg-white cursor-pointer"
                 />
               </PopoverContent>
             </Popover>

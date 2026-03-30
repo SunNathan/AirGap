@@ -8,7 +8,7 @@
 
         <div class="flex items-center space-x-3">
           <Button
-              class="cursor-pointer bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+              class="w-full btn btn-primary flex justify-center cursor-pointer text-primary-50 bg-primary-500 hover:bg-primary-600 focus:ring-primary-300 transition-colors"
               @click="openAddBudgetModal()"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
@@ -68,7 +68,7 @@
                 <span v-else class="font-medium italic">Aucune</span>
               </span>
               <span class="mx-2 hidden sm:inline">•</span>
-              <span>Période: <span class="font-medium">{{
+              <span>Période: <span class="font-medium ">{{
                   formatDateRange(budget.startDate, budget.endDate)
                 }}</span></span>
             </div>
@@ -99,116 +99,121 @@
     <div v-if="showBudgetModal" class="fixed inset-0 z-50 flex items-center justify-center">
       <div class="fixed inset-0 dark:bg-neutral-900/60 backdrop-blur-sm" @click="closeBudgetModal"/>
 
-    <Card class="w-full max-w-md mx-auto backdrop-blur-sm">
+      <Card class="w-full max-w-md mx-auto relative bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-500 dark:border-neutral-700 hover:shadow-md transition-shadow duration-300">
         <CardHeader>
           <CardTitle class="text-neutral-900 dark:text-neutral-50">
             {{ editingBudget ? 'Modifier le budget' : 'Nouveau budget' }}
           </CardTitle>
         </CardHeader>
 
-          <form class="space-y-4" @submit.prevent="saveBudget">
-            <CardContent>
+        <form class="space-y-4" @submit.prevent="saveBudget">
+          <CardContent>
             <Field>
               <FieldLabel for="name"
-                     class="text-neutral-700 dark:text-neutral-300">
+                          class="text-neutral-700 dark:text-neutral-300">
                 Nom
               </FieldLabel>
               <Input
                   id="name"
                   v-model="budgetForm.name"
                   type="text"
-                  class="w-full px-3 py-2 dark:border-button-1 focus:outline-none focus:ring-1 focus:ring-button-3 transition-colors"
+                  class="w-full px-3 py-2 dark:border-button-1 focus:outline-none transition-colors"
                   placeholder="Ex: Courses mensuelles"
                   required
               />
             </Field>
 
-              <Field>
-                <FieldLabel for="amount"
-                            class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mt-2">Montant
-                </FieldLabel>
-                <div class="relative">
-                  <Input
-                      id="amount"
-                      v-model.number="budgetForm.amount"
-                      type="number"
-                      class="w-full mb-2 px-3 py-2 dark:border-button-1 focus:outline-none focus:ring-1 focus:ring-button-3 transition-colors"
-                      step="0.01"
-                      min="0.01"
-                      placeholder="0.00"
-                      required
-                  />
-                  <span class="absolute right-10 top-1/2 transform -translate-y-1/2 text-neutral-500">€</span>
-                </div>
-              </Field>
+            <Field>
+              <FieldLabel for="amount"
+                          class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mt-2">Montant
+              </FieldLabel>
+              <div class="relative">
+                <Input
+                    id="amount"
+                    v-model.number="budgetForm.amount"
+                    type="number"
+                    class="w-full mb-2 px-3 py-2 dark:border-button-1 focus:outline-none transition-colors"
+                    step="0.01"
+                    min="0.01"
+                    placeholder="0.00"
+                    required
+                />
+                <span class="absolute right-10 top-1/2 transform -translate-y-1/2 text-neutral-500">€</span>
+              </div>
+            </Field>
 
             <Field>
               <FieldLabel for="category" class="text-neutral-700 dark:text-neutral-300">
                 Catégorie à suivre
               </FieldLabel>
               <Select>
-              <SelectTrigger
-                  id="category"
-                  v-model="budgetForm.categoryId"
-                  class="w-full mb-2"
-                  required>
-                <SelectValue placeholder="Sélectionnez une catégorie"/>
-              </SelectTrigger>
+                <SelectTrigger
+                    id="category"
+                    v-model="budgetForm.categoryId"
+                    class="w-full mb-2"
+                    required>
+                  <SelectValue placeholder="Sélectionnez une catégorie"/>
+                </SelectTrigger>
                 <SelectContent>
-                <SelectItem class="cursor-pointer" v-for="cat in expenseCategories" :key="cat.id" :value="cat.id">
-                  {{ cat.name }}
-                </SelectItem>
+                  <SelectItem class="cursor-pointer" v-for="cat in expenseCategories" :key="cat.id" :value="cat.id">
+                    {{ cat.name }}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </Field>
 
             <Field>
               <FieldLabel for="period"
-                     class="text-neutral-700 dark:text-neutral-300">Période</FieldLabel>
+                          class="text-neutral-700 dark:text-neutral-300">Période
+              </FieldLabel>
               <Select>
                 <SelectTrigger
-                  id="period"
-                  v-model="budgetForm.periodType"
-                  class="w-full mb-2"
-                  required
-              >
+                    id="period"
+                    v-model="budgetForm.periodType"
+                    class="w-full mb-2"
+                    required
+                >
                   <SelectValue placeholder="Sélectionnez la période"/>
                 </SelectTrigger>
-                <SelectContent class="bg-neutral-700 cursor-pointer">
-                <SelectItem class="hover:dark:bg-neutral-600 hover:bg-neutral-400 cursor-pointer" value="monthly">Ce mois-ci</SelectItem>
-                <SelectItem class="hover:dark:bg-neutral-600 hover:bg-neutral-400  cursor-pointer" value="yearly">Cette année</SelectItem>
+                <SelectContent class="bg-white dark:bg-neutral-900 dark:text-neutral-300 cursor-pointer">
+                  <SelectItem
+                      class="hover:dark:bg-neutral-600 hover:bg-neutral-400 bg-white dark:bg-neutral-900 dark:text-neutral-300 cursor-pointer"
+                      value="monthly">Ce mois-ci
+                  </SelectItem>
+                  <SelectItem
+                      class="hover:dark:bg-neutral-600 hover:bg-neutral-400 bg-white dark:bg-neutral-900 dark:text-neutral-300 cursor-pointer"
+                      value="yearly">Cette année
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </Field>
 
-            </CardContent>
-            <CardFooter class="gap-3">
-              <Button
-                  type="button"
-                  class="w-full cursor-pointer border-primary-50 text-neutral-700 dark:text-neutral-300 bg-neutral-500 dark:bg-neutral-700 hover:dark:bg-neutral-600 hover:bg-neutral-400 transition-colors"
-                  @click="closeBudgetModal"
-              >
-                Annuler
-              </Button>
-              <Button
-                  type="submit"
-                  class="w-full cursor-pointer text-primary-50 bg-primary-500 hover:bg-primary-600 transition-colors"
-                  :disabled="isSubmitting"
-              >
-                <span v-if="isSubmitting">En cours...</span>
-                <span v-else>{{ editingBudget ? 'Enregistrer' : 'Ajouter' }}</span>
-              </Button>
-            </CardFooter>
-          </form>
-<!--      </div>-->
-    </Card>
-  </div>
+          </CardContent>
+          <CardFooter class="gap-3">
+            <Button
+                type="button"
+                class="w-full cursor-pointer border-primary-50 text-neutral-700 dark:text-neutral-300 bg-neutral-500 dark:bg-neutral-700 hover:dark:bg-neutral-600 hover:bg-neutral-400 transition-colors"
+                @click="closeBudgetModal"
+            >
+              Annuler
+            </Button>
+            <Button
+                type="submit"
+                class="w-full cursor-pointer text-primary-50 bg-primary-500 hover:bg-primary-600 transition-colors"
+                :disabled="isSubmitting"
+            >
+              <span v-if="isSubmitting">En cours...</span>
+              <span v-else>{{ editingBudget ? 'Enregistrer' : 'Ajouter' }}</span>
+            </Button>
+          </CardFooter>
+        </form>
+        <!--      </div>-->
+      </Card>
+    </div>
   </div>
 </template>
 
 <script setup>
-import {startOfMonth, endOfMonth, startOfYear, endOfYear} from 'date-fns';
-
 definePageMeta({
   middleware: ['authenticated']
 });

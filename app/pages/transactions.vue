@@ -21,13 +21,13 @@
           <div class="h-6 w-[1px] bg-neutral-200 dark:bg-neutral-800 mx-1"/>
 
           <div class="flex items-center">
-            <input
+            <Input
                 ref="fileInput"
                 type="file"
                 accept=".csv"
                 class="hidden"
                 @change="handleFileUpload"
-            >
+            />
             <Button
                 class="cursor-pointer text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all duration-200 p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-center active:scale-90"
                 :disabled="isParsing"
@@ -105,13 +105,13 @@
                 <TableCell class="py-3 px-4 text-right whitespace-nowrap">
                   <div class="flex justify-end space-x-2">
                     <Button
-                        class="cursor-pointer p-1 text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors rounded"
+                        class="cursor-pointer p-1 text-neutral-500 hover:text-primary-600 transition-colors rounded"
                         @click="editTransaction(transaction)">
                       <span class="sr-only">Modifier</span>
                       <SquarePen/>
                     </Button>
                     <Button
-                        class="cursor-pointer p-1 text-neutral-500 hover:text-red-600 dark:hover:text-red-400 transition-colors rounded"
+                        class="cursor-pointer p-1 text-neutral-500 hover:text-primary-550 transition-colors rounded"
                         @click="confirmDeleteTransaction(transaction)">
                       <span class="sr-only">Supprimer</span>
                       <TrashIcon/>
@@ -135,7 +135,6 @@
 </template>
 
 <script setup>
-import Papa from 'papaparse';
 import {ref, onMounted, computed} from 'vue';
 import {
   Search,
@@ -144,9 +143,7 @@ import {
   TrashIcon,
   SquarePen,
 } from 'lucide-vue-next';
-import {Button} from '~/components/ui/button';
-import {Input} from '~/components/ui/input';
-import {Table, TableBody, TableHead, TableRow, TableCell, TableHeader} from "~/components/ui/table/index.js";
+
 
 const searchQuery = ref('');
 
@@ -184,7 +181,7 @@ const selectedTransaction = ref(null);
 
 // --- HELPER FUNCTIONS ---
 const isIncome = (t) => t.typeTransaction === 'revenu';
-const getTransactionClass = (t) => isIncome(t) ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
+const getTransactionClass = (t) => isIncome(t) ? 'text-primary-600' : 'text-primary-550';
 const getTransactionSign = (t) => isIncome(t) ? '+' : '-';
 
 const formatCurrency = (amount) => new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(amount);
