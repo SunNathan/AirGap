@@ -21,13 +21,13 @@
           <div class="h-6 w-[1px] bg-neutral-200 dark:bg-neutral-800 mx-1"/>
 
           <div class="flex items-center">
-            <Input
+            <input
                 ref="fileInput"
                 type="file"
                 accept=".csv"
                 class="hidden"
                 @change="handleFileUpload"
-            />
+            >
             <Button
                 class="cursor-pointer text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all duration-200 p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center justify-center active:scale-90"
                 :disabled="isParsing"
