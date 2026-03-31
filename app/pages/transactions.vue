@@ -58,7 +58,7 @@
         </div>
 
         <div v-else class="overflow-x-auto">
-          <Table class="w-full">
+          <Table class="w-full" aria-hidden="true">
             <TableHeader>
               <TableRow
                   class="border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">

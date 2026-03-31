@@ -1,6 +1,4 @@
 <script>
-import { cn } from "@/lib/utils";
-import ChartStyle from "./ChartStyle.vue";
 import {provideChartContext} from "./interface.js"
 </script>
 
@@ -21,7 +19,7 @@ defineSlots();
 const { config } = toRefs(props);
 const uniqueId = useId();
 const chartId = computed(
-  () => `chart-${props.id || uniqueId.replace(/:/g, "")}`,
+  () => `chart-${props.id || uniqueId.replaceAll(':', "")}`,
 );
 
 provideChartContext({
