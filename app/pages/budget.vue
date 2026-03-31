@@ -1,25 +1,26 @@
 <template>
   <div class="pt-16 pb-8 px-4">
     <div class="max-w-6xl mx-auto">
-      <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center justify-between mb-8 gap-4">
         <div>
           <h1 class="text-4xl font-black tracking-tighter">Budgets</h1>
         </div>
 
         <div class="flex items-center space-x-3">
-          <button
-              class="btn btn-primary text-sm px-4 py-2 flex items-center bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+          <Button
+              class="w-full btn btn-primary flex justify-center cursor-pointer text-primary-50 bg-primary-500 hover:bg-primary-600 focus:ring-primary-300 transition-colors"
               @click="openAddBudgetModal()"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
             Nouveau budget
-          </button>
+          </Button>
         </div>
       </div>
 
-      <div class="card p-6 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-800">
+      <div class="card p-6 bg-white dark:bg-neutral-900 shadow-sm border-neutral-200 dark:border-neutral-800">
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-xl font-medium text-neutral-900 dark:text-neutral-50">Mes Budgets</h2>
         </div>
@@ -29,25 +30,33 @@
         </div>
 
         <div v-else-if="budgets.length === 0" class="text-center py-8">
-          <p class="text-neutral-600 dark:text-neutral-400">Aucun budget défini. Cliquez sur "Nouveau budget" pour commencer.</p>
+          <p class="text-neutral-600 dark:text-neutral-400">Aucun budget défini. Cliquez sur "Nouveau budget" pour
+            commencer.</p>
         </div>
 
         <div v-else class="space-y-6">
-          <div v-for="budget in sortedBudgets" :key="budget.id" class="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg border border-neutral-200 dark:border-neutral-700">
+          <div v-for="budget in sortedBudgets" :key="budget.id"
+               class="bg-neutral-50 dark:bg-neutral-800 p-4 border-neutral-200 dark:border-neutral-700">
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-50">{{ budget.name }}</h3>
 
               <div class="flex items-center space-x-2">
-                <button class="text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400" @click="editBudget(budget)">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                <Button class="text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400"
+                        @click="editBudget(budget)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                       stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                   </svg>
-                </button>
-                <button class="text-neutral-500 hover:text-red-600 dark:hover:text-red-400" @click="confirmDeleteBudget(budget)">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </Button>
+                <Button class="text-neutral-500 hover:text-red-600 dark:hover:text-red-400"
+                        @click="confirmDeleteBudget(budget)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                       stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                   </svg>
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -59,14 +68,17 @@
                 <span v-else class="font-medium italic">Aucune</span>
               </span>
               <span class="mx-2 hidden sm:inline">•</span>
-              <span>Période: <span class="font-medium">{{ formatDateRange(budget.startDate, budget.endDate) }}</span></span>
+              <span>Période: <span class="font-medium ">{{
+                  formatDateRange(budget.startDate, budget.endDate)
+                }}</span></span>
             </div>
 
             <div class="mb-2 flex justify-between text-sm">
               <span class="text-neutral-700 dark:text-neutral-300">
                 {{ formatCurrency(getBudgetSpent(budget)) }} dépensés sur {{ formatCurrency(budget.amount) }}
               </span>
-              <span class="font-medium" :class="getBudgetSpent(budget) > Number(budget.amount) ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'">
+              <span class="font-medium"
+                    :class="getBudgetSpent(budget) > Number(budget.amount) ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'">
                 {{ getBudgetSpent(budget) > Number(budget.amount) ? 'Dépassé de' : 'Reste' }}:
                 {{ formatCurrency(Math.abs(Number(budget.amount) - getBudgetSpent(budget))) }}
               </span>
@@ -84,98 +96,123 @@
       </div>
     </div>
 
-    <div v-if="showBudgetModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div class="fixed inset-0 bg-neutral-900/60 backdrop-blur-sm" @click="closeBudgetModal"/>
-      <div class="bg-white dark:bg-neutral-800 shadow-xl rounded-lg w-full max-w-md z-50 relative overflow-hidden">
-        <div class="p-6">
-          <h2 class="text-xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">
-            {{ editingBudget ? 'Modifier le budget' : 'Nouveau budget' }}
-          </h2>
+    <div v-if="showBudgetModal" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="fixed inset-0 dark:bg-neutral-900/60 backdrop-blur-sm" @click="closeBudgetModal"/>
 
-          <form class="space-y-4" @submit.prevent="saveBudget">
-            <div>
-              <label for="name" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Nom</label>
-              <input
+      <Card class="w-full max-w-md mx-auto relative bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-500 dark:border-neutral-700 hover:shadow-md transition-shadow duration-300">
+        <CardHeader>
+          <CardTitle class="text-neutral-900 dark:text-neutral-50">
+            {{ editingBudget ? 'Modifier le budget' : 'Nouveau budget' }}
+          </CardTitle>
+        </CardHeader>
+
+        <form class="space-y-4" @submit.prevent="saveBudget">
+          <CardContent>
+            <Field>
+              <FieldLabel for="name"
+                          class="text-neutral-700 dark:text-neutral-300">
+                Nom
+              </FieldLabel>
+              <Input
                   id="name"
                   v-model="budgetForm.name"
                   type="text"
-                  class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                  class="w-full px-3 py-2 dark:border-button-1 focus:outline-none transition-colors"
                   placeholder="Ex: Courses mensuelles"
                   required
-              >
-            </div>
+              />
+            </Field>
 
-            <div>
-              <label for="amount" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Montant cible</label>
+            <Field>
+              <FieldLabel for="amount"
+                          class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mt-2">Montant
+              </FieldLabel>
               <div class="relative">
-                <input
+                <Input
                     id="amount"
                     v-model.number="budgetForm.amount"
                     type="number"
-                    class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors pr-10"
+                    class="w-full mb-2 px-3 py-2 dark:border-button-1 focus:outline-none transition-colors"
                     step="0.01"
                     min="0.01"
                     placeholder="0.00"
                     required
-                >
-                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500">€</span>
+                />
+                <span class="absolute right-10 top-1/2 transform -translate-y-1/2 text-neutral-500">€</span>
               </div>
-            </div>
+            </Field>
 
-            <div>
-              <label for="category" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Catégorie à suivre</label>
-              <select
-                  id="category"
-                  v-model="budgetForm.categoryId"
-                  class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-                  required>
-                <option value="" disabled>Sélectionner une catégorie</option>
-                <option v-for="cat in expenseCategories" :key="cat.id" :value="cat.id">
-                  {{ cat.name }}
-                </option>
-              </select>
-            </div>
+            <Field>
+              <FieldLabel for="category" class="text-neutral-700 dark:text-neutral-300">
+                Catégorie à suivre
+              </FieldLabel>
+              <Select>
+                <SelectTrigger
+                    id="category"
+                    v-model="budgetForm.categoryId"
+                    class="w-full mb-2"
+                    required>
+                  <SelectValue placeholder="Sélectionnez une catégorie"/>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem class="cursor-pointer" v-for="cat in expenseCategories" :key="cat.id" :value="cat.id">
+                    {{ cat.name }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
 
-            <div>
-              <label for="period" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Période</label>
-              <select
-                  id="period"
-                  v-model="budgetForm.periodType"
-                  class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-                  required
-              >
-                <option value="monthly">Ce mois-ci</option>
-                <option value="yearly">Cette année</option>
-              </select>
-            </div>
+            <Field>
+              <FieldLabel for="period"
+                          class="text-neutral-700 dark:text-neutral-300">Période
+              </FieldLabel>
+              <Select>
+                <SelectTrigger
+                    id="period"
+                    v-model="budgetForm.periodType"
+                    class="w-full mb-2"
+                    required
+                >
+                  <SelectValue placeholder="Sélectionnez la période"/>
+                </SelectTrigger>
+                <SelectContent class="bg-white dark:bg-neutral-900 dark:text-neutral-300 cursor-pointer">
+                  <SelectItem
+                      class="hover:dark:bg-neutral-600 hover:bg-neutral-400 bg-white dark:bg-neutral-900 dark:text-neutral-300 cursor-pointer"
+                      value="monthly">Ce mois-ci
+                  </SelectItem>
+                  <SelectItem
+                      class="hover:dark:bg-neutral-600 hover:bg-neutral-400 bg-white dark:bg-neutral-900 dark:text-neutral-300 cursor-pointer"
+                      value="yearly">Cette année
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
 
-            <div class="flex justify-end gap-3 pt-4">
-              <button
-                  type="button"
-                  class="px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-                  @click="closeBudgetModal"
-              >
-                Annuler
-              </button>
-              <button
-                  type="submit"
-                  class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-                  :disabled="isSubmitting"
-              >
-                <span v-if="isSubmitting">En cours...</span>
-                <span v-else>{{ editingBudget ? 'Enregistrer' : 'Ajouter' }}</span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+          </CardContent>
+          <CardFooter class="gap-3">
+            <Button
+                type="button"
+                class="w-full cursor-pointer border-primary-50 text-neutral-700 dark:text-neutral-300 bg-neutral-500 dark:bg-neutral-700 hover:dark:bg-neutral-600 hover:bg-neutral-400 transition-colors"
+                @click="closeBudgetModal"
+            >
+              Annuler
+            </Button>
+            <Button
+                type="submit"
+                class="w-full cursor-pointer text-primary-50 bg-primary-500 hover:bg-primary-600 transition-colors"
+                :disabled="isSubmitting"
+            >
+              <span v-if="isSubmitting">En cours...</span>
+              <span v-else>{{ editingBudget ? 'Enregistrer' : 'Ajouter' }}</span>
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   </div>
 </template>
 
 <script setup>
-import { startOfMonth, endOfMonth, startOfYear, endOfYear } from 'date-fns';
-
 definePageMeta({
   middleware: ['authenticated']
 });
@@ -375,7 +412,7 @@ const confirmDeleteBudget = async (budget) => {
   if (!confirm(`Supprimer le budget "${budget.name}" ?`)) return;
 
   try {
-    await $fetch(`/api/budgets/${budget.id}`, { method: 'DELETE' });
+    await $fetch(`/api/budgets/${budget.id}`, {method: 'DELETE'});
     budgets.value = budgets.value.filter(b => b.id !== budget.id);
   } catch (err) {
     console.error('Erreur suppression:', err);
@@ -386,7 +423,7 @@ const confirmDeleteBudget = async (budget) => {
 // --- Formattage ---
 
 const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount);
+  return new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(amount);
 };
 
 const formatDateRange = (startStr, endStr) => {

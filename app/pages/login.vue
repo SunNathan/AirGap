@@ -1,55 +1,61 @@
 <template>
-  <div class="flex justify-center items-center py-12">
-    <div class="card w-full max-w-md">
-      <div class="text-center mb-6">
-        <h1 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50">Se connecter</h1>
-        <p class="text-neutral-600 dark:text-neutral-400 mt-2">Accédez à votre tableau de bord</p>
-      </div>
-
-      <form class="space-y-6" @submit.prevent="handleLogin">
+  <div class="flex justify-center py-12">
+    <Card class="card w-full max-w-md">
+      <CardHeader>
         <div>
-          <label for="email" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">Email</label>
-          <input
-              id="email"
-              v-model="credentials.email"
-              type="email"
-              required
-              class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-              placeholder="votre@email.com"
-          >
+          <CardTitle>Se connecter</CardTitle>
+          <CardDescription>Accédez à votre tableau de bord</CardDescription>
         </div>
+      </CardHeader>
 
-        <div>
-          <div class="flex items-center justify-between mb-1">
-            <label for="password" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Mot de
-              passe</label>
+      <form @submit.prevent="handleLogin">
+        <CardContent class="space-y-6">
+          <div>
+            <Label for="email" class="block mb-1">Email</Label>
+            <Input
+                id="email"
+                v-model="credentials.email"
+                type="email"
+                required
+                class="w-full px-3 py-2 dark:border-button-1 focus:outline-none focus:ring-2 focus:ring-button-3 transition-colors"
+                placeholder="votre@email.com"
+            />
           </div>
-          <input
-              id="password"
-              v-model="credentials.password"
-              type="password"
-              required
-              class="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
-              placeholder="••••••••"
-          >
-        </div>
-        <button
-            type="submit"
-            class="w-full btn btn-primary flex justify-center"
-        >
-          <span>Se connecter</span>
-        </button>
-      </form>
 
-      <div class="mt-6 text-center">
-        <p class="text-sm text-neutral-600 dark:text-neutral-400">
-          Pas encore de compte?
-          <NuxtLink to="/register" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Créer un
-            compte
-          </NuxtLink>
-        </p>
-      </div>
-    </div>
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <Label for="password" class="block">Mot de
+                passe</Label>
+            </div>
+            <Input
+                id="password"
+                v-model="credentials.password"
+                type="password"
+                required
+                class="w-full px-3 py-2 dark:border-button-1 focus:outline-none focus:ring-1 focus:ring-button-3 transition-colors"
+                placeholder="••••••••"
+            />
+          </div>
+        </CardContent>
+        <CardFooter class="flex flex-col">
+          <Button
+              type="submit"
+              class="w-full cursor-pointer text-primary-50 bg-primary-500 hover:bg-primary-600 focus:ring-primary-300 transition-colors"
+          >
+            Se connecter
+          </Button>
+          <Separator class="mt-5 mb-4 dark:bg-primary-50 bg-neutral-900" />
+          <div class="flex items-center">
+            <p>Pas encore de compte ?</p>
+            <Button class="text-primary-500 hover:underline">
+              <NuxtLink to="/register">
+                Créer un compte
+              </NuxtLink>
+            </Button>
+          </div>
+        </CardFooter>
+      </form>
+    </Card>
   </div>
 </template>
 

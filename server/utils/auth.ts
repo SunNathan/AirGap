@@ -4,14 +4,14 @@ declare module '#auth-utils' {
     interface User {
         id: string;
         email: string;
-        username?: string;
+        name?: string | null;
     }
 }
 
 export interface UserSession {
     id: string;
     email: string;
-    username?: string;
+    name?: string | null;
 }
 
 export const requireAuth = async (event: H3Event): Promise<UserSession> => {

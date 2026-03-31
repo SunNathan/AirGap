@@ -1,7 +1,7 @@
 <script setup>
 import {reactiveOmit} from "@vueuse/core";
 import {CalendarRoot, useForwardPropsEmits} from "reka-ui";
-import {cn} from "~~/lib/utils.ts";
+import {cn} from "~/lib/utils.ts";
 import {
   CalendarCell,
   CalendarCellTrigger,

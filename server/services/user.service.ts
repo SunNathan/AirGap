@@ -1,6 +1,6 @@
-import {eq} from 'drizzle-orm'
-import {db} from "#server/db";
-import {users} from "~~/drizzle/schema";
+import { eq } from "drizzle-orm";
+import { db } from "#server/db";
+import { users } from "~~/drizzle/schema";
 
 export const getUserByEmail = async (email: string) => {
     return await db.query.users.findFirst({
@@ -17,7 +17,6 @@ export const getUserById = async (userId: string) => {
             name: true,
             createdAt: true,
             updatedAt: true
-
         }
     });
 }
@@ -41,6 +40,15 @@ export const updateUserPassword = async (userId: string, newHashedPassword: stri
     return db.update(users)
         .set({
             password: newHashedPassword,
+            updatedAt: new Date()
+        })
+        .where(eq(users.id, userId));
+}
+
+export const updateUserProfile = async (userId: string, name: string) => {
+    return db.update(users)
+        .set({
+            name: name,
             updatedAt: new Date()
         })
         .where(eq(users.id, userId));

@@ -2,7 +2,7 @@
 import {reactiveOmit} from "@vueuse/core";
 import {ChevronRight} from "lucide-vue-next";
 import {CalendarNext, useForwardProps} from "reka-ui";
-import {cn} from "~~/lib/utils.ts";
+import {cn} from "~/lib/utils.ts";
 import {buttonVariants} from '@/components/ui/button';
 
 const props = defineProps({
