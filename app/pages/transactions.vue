@@ -43,7 +43,7 @@
               @click="openTransactionModal"
           >
             <PlusIcon class="h-4 w-4 stroke-[3]"/>
-            <span class="hidden sm:inline">Ajouter</span>
+            <span class="hidden sm:inline">Nouvelle transaction</span>
           </Button>
         </div>
       </div>
