@@ -2,14 +2,14 @@ import {z} from 'zod'
 import {createTransaction} from "#server/services/transactions.service";
 
 const createTransactionSchema = z.object({
-    amount: z.number({required_error: "Le montant est requis"})
+    amount: z.number({message: "Le montant est requis"})
         .positive("Le montant doit être positif"),
-    description: z.string({required_error: "La description est requise"})
+    description: z.string({message: "La description est requise"})
         .min(1, "La description ne peut pas être vide"),
-    date: z.coerce.date({required_error: "La date est requise"}),
-    accountId: z.string({required_error: "Le compte est requis"}).uuid(),
+    date: z.coerce.date({message: "La date est requise"}),
+    accountId: z.string({message: "Le compte est requis"}).uuid(),
     typeTransaction: z.enum(["depense", "revenu", "non_categorise"], {
-        required_error: "Le type est requis"
+        message: "Le type est requis"
     }),
     categoryId: z.string().uuid().optional(),
 })

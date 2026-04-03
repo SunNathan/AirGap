@@ -3,11 +3,11 @@ import {createCategory} from "#server/services/categories.service";
 
 
 const createCategorySchema = z.object({
-    name: z.string({required_error: "Le nom est requis"})
+    name: z.string({message: "Le nom est requis"})
         .min(1, "Le nom ne peut pas être vide"),
 
     typeTransaction: z.enum(["depense", "revenu", "non_categorise"], {
-        required_error: "Le type de transaction est requis"
+        message: "Le type de transaction est requis"
     }),
 
     isDefault: z.boolean().optional().default(false)
