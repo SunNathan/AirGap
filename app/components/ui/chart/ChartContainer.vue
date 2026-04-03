@@ -3,6 +3,9 @@ import {provideChartContext} from "./interface.js"
 </script>
 
 <script setup>
+import { cn } from "~/lib/utils";
+import { computed, toRefs } from "vue";
+
 const props = defineProps({
   id: { type: null, required: false },
   class: {
