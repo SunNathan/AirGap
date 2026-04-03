@@ -2,12 +2,12 @@ import {z} from 'zod'
 import {createBudget} from "#server/services/budgets.service";
 
 const createBudgetSchema = z.object({
-    name: z.string({required_error: "Le nom est requis"})
+    name: z.string({message: "Le nom est requis"})
         .min(1, "Le nom ne peut pas être vide"),
-    amount: z.number({required_error: "Le montant est requis"})
+    amount: z.number({message: "Le montant est requis"})
         .positive("Le montant doit être positif"),
-    startDate: z.coerce.date({required_error: "La date de début est requise"}),
-    endDate: z.coerce.date({required_error: "La date de fin est requise"}),
+    startDate: z.coerce.date({message: "La date de début est requise"}),
+    endDate: z.coerce.date({message: "La date de fin est requise"}),
     accountId: z.string().uuid().optional().nullable(),
     categoryIds: z.array(z.string().uuid()).optional()
 })
