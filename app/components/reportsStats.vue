@@ -62,21 +62,17 @@
               <p>Aucune donnée.</p>
             </div>
             <div v-else class="flex flex-col h-full w-full dark:unovis-dark-mode">
-              <p class="text-xs text-neutral-400 mb-2 italic text-center">💡 Cliquez sur un nœud pour déployer le détail
-                des transactions.</p>
               <ChartContainer :config="chartConfig">
                 <VisSingleContainer :data="cashFlow" class="h-full w-full sankeyGraph">
                   <VisSankey
                       :node-id="(d) => d.id"
                       :node-label="(d) => d.label"
-                      :node-icon="(d) => d.type === 'expense' ? (activeCategory === d.id ? '-' : '+') : ''"
                       :source="(d) => d.source"
                       :target="(d) => d.target"
                       :value="(d) => d.value"
                       :node-color="() => THEME.colors.expense"
                       :node-width="20"
                       :node-padding="15"
-                      :events="sankeyEvents"
                   />
                   <ChartTooltip/>
                 </VisSingleContainer>
@@ -197,7 +193,6 @@ const selectedQuarter = ref(CURRENT_QUARTER);
 const isYearMenuOpen = ref(false);
 const isMonthMenuOpen = ref(false);
 const isQuarterMenuOpen = ref(false);
-const activeCategory = ref(null);
 
 const {data: anneesData} = await useFetch('/api/calendar/years');
 const {data: trimestresData} = await useFetch('/api/calendar/quarters');
@@ -254,7 +249,6 @@ const activePeriodSelectors = computed(() => {
 const changePeriod = (p) => {
   if (period.value === p) return;
   period.value = p;
-  activeCategory.value = null;
   selectedYear.value = CURRENT_YEAR;
   selectedMonth.value = CURRENT_MONTH;
   selectedQuarter.value = CURRENT_QUARTER;
@@ -336,29 +330,10 @@ const cashFlow = computed(() => {
     const id = `${name}_out`;
     nodes.push({id, label: name, type: 'expense'});
     links.push({source: 'center_budget', target: id, value});
-
-    if (activeCategory.value === id) {
-      cleanTransactions.value
-          .filter(t => (t.categoryName || 'Autre') === name && t.typeStr !== 'income')
-          .forEach((t, i) => {
-            const subId = `${id}_s_${i}`;
-            nodes.push({id: subId, label: `${t.name} (${formatEuro(t.amount)})`, type: 'sub'});
-            links.push({source: id, target: subId, value: t.amount});
-          });
-    }
   });
 
   return {nodes, links};
 });
-
-const sankeyEvents = {
-  [Sankey.selectors.node]: {
-    click: (n) => {
-      const d = n?.id ? n : n?.object;
-      if (d?.type === 'expense') activeCategory.value = activeCategory.value === d.id ? null : d.id;
-    }
-  }
-};
 
 const currentYearBalanceData = computed(() => {
   const source = transactionsFixed2026Data.value?.transactions || [];
@@ -381,7 +356,6 @@ const currentYearBalanceData = computed(() => {
 
 <style>
 .sankeyGraph g rect {
-  cursor: pointer;
   transition: opacity 0.2s ease;
 }
 
