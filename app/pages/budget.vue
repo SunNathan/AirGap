@@ -146,16 +146,15 @@
               <FieldLabel for="category" class="text-neutral-700 dark:text-neutral-300">
                 Catégorie à suivre
               </FieldLabel>
-              <Select>
+              <Select v-model="budgetForm.categoryId">
                 <SelectTrigger
                     id="category"
-                    v-model="budgetForm.categoryId"
                     class="w-full mb-2"
                     required>
                   <SelectValue placeholder="Sélectionnez une catégorie"/>
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem class="cursor-pointer" v-for="cat in expenseCategories" :key="cat.id" :value="cat.id">
+                <SelectContent class="dark:bg-neutral-700 bg-white">
+                  <SelectItem class="hover:dark:bg-neutral-800 hover:bg-neutral-400 cursor-pointer" v-for="cat in expenseCategories" :key="cat.id" :value="cat.id.toString()">
                     {{ cat.name }}
                   </SelectItem>
                 </SelectContent>
@@ -213,6 +212,8 @@
 </template>
 
 <script setup>
+import {endOfMonth, endOfYear, startOfMonth, startOfYear} from "date-fns";
+
 definePageMeta({
   middleware: ['authenticated']
 });
