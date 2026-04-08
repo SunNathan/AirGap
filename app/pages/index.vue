@@ -59,15 +59,19 @@
 </template>
 
 <script setup>
-import {computed} from 'vue';
+import {computed, onMounted} from 'vue';
 
 definePageMeta({
   middleware: ['authenticated']
 });
 
-const {data: apiResult, pending: loading} = await useFetch('/api/transactions', {
+const {data: apiResult, pending: loading, refresh} = await useFetch('/api/transactions', {
   key: 'dashboard-data',
   lazy: false
+});
+
+onMounted(() => {
+  refresh();
 });
 
 const transactions = computed(() => {
@@ -125,4 +129,5 @@ const formatPercent = (val) => {
   const sign = val > 0 ? '+' : '';
   return `${sign}${val.toFixed(1)}%`;
 };
+
 </script>

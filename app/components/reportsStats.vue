@@ -343,8 +343,17 @@ const currentYearBalanceData = computed(() => {
   const map = new Map();
   map.set(new Date(selectedYear.value, 0, 1).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit'}), initial);
 
-  source.forEach(t => {
-    running += Number(t.amount);
+  const sortedSource = [...source].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  sortedSource.forEach(t => {
+    const amount = Math.abs(Number(t.amount));
+
+    if (t.typeTransaction === 'depense' || t.typeStr === 'expense') {
+      running -= amount;
+    } else {
+      running += amount;
+    }
+
     if (new Date(t.date).getFullYear() === selectedYear.value)
       map.set(new Date(t.date).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit'}), running);
   });
