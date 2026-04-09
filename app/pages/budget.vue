@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="card p-6 bg-white dark:bg-neutral-900 shadow-sm border-neutral-200 dark:border-neutral-800">
+      <div class="card p-6 bg-white dark:bg-neutral-900 shadow-xl border-neutral-200 dark:border-neutral-750">
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-xl font-medium text-neutral-900 dark:text-neutral-50">Mes Budgets</h2>
         </div>
@@ -36,9 +36,9 @@
 
         <div v-else class="space-y-6">
           <div v-for="budget in sortedBudgets" :key="budget.id"
-               class="bg-neutral-50 dark:bg-neutral-800 p-4 border-neutral-200 dark:border-neutral-700">
+               class="bg-neutral-50 dark:bg-neutral-800 p-4 border rounded-xl border-neutral-200 dark:border-neutral-750">
             <div class="flex items-center justify-between mb-2">
-              <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral-50">{{ budget.name }}</h3>
+              <h3 class="text-lg font-medium text-neutral-800 dark:text-neutral-50">{{ budget.name }}</h3>
 
               <div class="flex items-center space-x-2">
                 <Button
