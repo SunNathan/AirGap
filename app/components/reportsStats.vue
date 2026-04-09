@@ -4,7 +4,7 @@
 
       <div class="flex justify-center mb-10 w-full">
         <div
-            class="bg-gray-50 dark:bg-neutral-800/50 p-1.5 rounded-lg flex flex-wrap justify-center items-center gap-2 border border-gray-200 dark:border-neutral-700 backdrop-blur-sm z-20 w-full sm:w-auto">
+            class="bg-gray-50 dark:bg-neutral-800/50 p-1.5 shadow-xl rounded-lg flex flex-wrap justify-center items-center gap-2 border border-gray-200 dark:border-neutral-750 backdrop-blur-sm z-20 w-full sm:w-auto">
           <Button
               v-for="p in ['month', 'quarter', 'year']"
               :key="p"
@@ -20,7 +20,7 @@
             <div class="hidden sm:block h-4 w-px bg-gray-300 dark:bg-neutral-600 mx-1"/>
             <div class="relative w-full sm:w-auto mt-2 sm:mt-0">
               <Button
-                  class="cursor-pointer flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 px-4 py-2 text-sm font-bold text-primary-600 dark:bg-neutral-700 rounded-lg shadow-md transition-all"
+                  class="cursor-pointer flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 px-4 py-2 text-sm font-bold text-primary-600 dark:bg-neutral-750 rounded-lg shadow-md transition-all"
                   @click="type.toggleMenu()"
               >
                 {{ type.label }}
@@ -32,7 +32,7 @@
                 </svg>
               </Button>
               <div v-if="type.isOpen"
-                   class="absolute top-full mt-2 right-0 w-full sm:w-32 bg-white dark:bg-neutral-700 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-700 overflow-hidden z-50">
+                   class="absolute top-full mt-2 right-0 w-full sm:w-32 bg-white dark:bg-neutral-700 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-750 overflow-hidden z-50">
                 <Button
                     v-for="option in type.options"
                     :key="option.value"
@@ -49,10 +49,10 @@
       </div>
 
       <Card
-          class="card mb-8 p-8 bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
-        <CardHeader class="flex justify-between items-end mb-8">
-          <CardTitle class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Cashflow</CardTitle>
-          <CardDescription class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">Visualisation des mouvements
+          class="card mb-8 p-8 bg-white dark:bg-neutral-900 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-750 duration-300">
+        <CardHeader>
+          <CardTitle class="text-neutral-900 dark:text-white">Cashflow</CardTitle>
+          <CardDescription class="text-neutral-500 dark:text-neutral-400 mt-1">Visualisation des mouvements
             financiers
           </CardDescription>
         </CardHeader>
@@ -62,7 +62,7 @@
               <p>Aucune donnée.</p>
             </div>
             <div v-else class="flex flex-col h-full w-full dark:unovis-dark-mode">
-              <p class="text-xs text-neutral-400 mb-2 italic text-center">💡 Cliquez sur un nœud pour déployer le détail
+              <p class="text-xs text-neutral-400 mb-2 italic text-center">Cliquez sur un nœud pour déployer le détail
                 des transactions.</p>
               <ChartContainer :config="chartConfig">
                 <VisSingleContainer :data="cashFlow" class="h-full w-full sankeyGraph">
@@ -88,7 +88,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         <Card
-            class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
+            class="bg-white dark:bg-neutral-900 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-750 transition-shadow duration-300">
           <CardHeader>
             <CardTitle class="text-neutral-900 dark:text-white tracking-tight">Revenus vs Dépenses</CardTitle>
             <CardDescription class="text-neutral-500 dark:text-neutral-400">Comparatif des volumes</CardDescription>
@@ -132,7 +132,7 @@
         </Card>
 
         <Card
-            class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-100 dark:border-neutral-800 hover:shadow-md transition-shadow duration-300">
+            class="bg-white dark:bg-neutral-900 rounded-lg shadow-xl border border-gray-100 dark:border-neutral-750 transition-shadow duration-300">
           <CardHeader>
             <CardTitle class="text-neutral-900 dark:text-white tracking-tight">Solde du compte</CardTitle>
             <CardDescription class="text-neutral-500 dark:text-neutral-400">Évolution du solde réel</CardDescription>
@@ -407,5 +407,10 @@ html.dark .sankeyGraph text {
 .unovis-grouped-bar-container rect {
   stroke-width: 0 !important;
   rx: 4px;
+}
+
+html.dark {
+  --vis-axis-grid-color: rgba(255, 255, 255, 0.05);
+  --vis-axis-textColor: rgba(255, 255, 255, 0.5);
 }
 </style>
