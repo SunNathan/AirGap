@@ -70,7 +70,8 @@ const { data: apiResult, pending: loading, refresh } = await useAsyncData(
     () => $fetch('/api/transactions'),
     {
       lazy: true,
-      server: true
+      server: true,
+      watch: [() => period]
     }
 );
 
