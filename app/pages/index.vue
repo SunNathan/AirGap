@@ -65,11 +65,14 @@ definePageMeta({
   middleware: ['authenticated']
 });
 
-const { data: apiResult, pending: loading } = useFetch('/api/transactions', {
-  key: 'dashboard-data',
-  lazy: true,
-  server: true
-});
+const { data: apiResult, pending: loading, refresh } = await useAsyncData(
+    'dashboard-transactions',
+    () => $fetch('/api/transactions'),
+    {
+      lazy: true,
+      server: true
+    }
+);
 
 const transactions = computed(() => {
   const list = apiResult.value?.transactions || [];
@@ -126,4 +129,8 @@ const formatPercent = (val) => {
   const sign = val > 0 ? '+' : '';
   return `${sign}${val.toFixed(1)}%`;
 };
+
+onMounted(() => {
+  refresh();
+})
 </script>
