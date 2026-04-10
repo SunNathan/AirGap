@@ -71,7 +71,6 @@ const { data: apiResult, pending: loading, refresh } = await useAsyncData(
     {
       lazy: true,
       server: true,
-      watch: [() => period]
     }
 );
 
