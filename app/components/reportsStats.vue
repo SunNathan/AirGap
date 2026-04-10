@@ -70,7 +70,11 @@
                       :source="(d) => d.source"
                       :target="(d) => d.target"
                       :value="(d) => d.value"
-                      :node-color="() => THEME.colors.expense"
+                      :node-color="(d) => ({
+                                             income: THEME.colors.income,
+                                             expense: THEME.colors.expense,
+                                             budget: THEME.colors.balance
+                      }[d.type])"
                       :node-width="20"
                       :node-padding="15"
                   />
@@ -136,9 +140,9 @@
           <CardContent>
             <ChartContainer class="h-[350px]" :config="chartConfig">
               <VisXYContainer :data="currentYearBalanceData">
-                <VisArea :x="(d, i) => i" :y="[(d) => d.balance]" :color="() => chartConfig.balance.color"
+                <VisArea :x="(d, i) => i" :y="[(d) => d.balance]" :color="() => chartConfig.income.color"
                          :opacity="0.3"/>
-                <VisLine :x="(d, i) => i" :y="[(d) => d.balance]" :color="() => chartConfig.balance.color"
+                <VisLine :x="(d, i) => i" :y="[(d) => d.balance]" :color="() => chartConfig.income.color"
                          :line-width="2.5"/>
                 <VisAxis type="x" :tick-line="false" :domain-line="false" :grid-line="false" :num-ticks="6"
                          :tick-format="(d, i) => currentYearBalanceData[i]?.dateLabel"/>
@@ -146,7 +150,7 @@
                 <ChartTooltip/>
                 <ChartCrosshair
                     :template="componentToString(chartConfig, ChartTooltipContent, { labelKey: 'dateLabel' })"
-                    :color="() => chartConfig.balance.color"
+                    :color="() => THEME.colors.income"
                 />
               </VisXYContainer>
             </ChartContainer>
@@ -169,12 +173,16 @@ const formatEuro = (value) => new Intl.NumberFormat('fr-FR', {
   minimumFractionDigits: 2
 }).format(value);
 
-const THEME = {colors: {balance: '#7bf1a8', income: '#7bf1a8', expense: '#00a63e'}};
+const THEME = {colors: {balance: '#94a3b8', income: '#7bf1a8', expense: '#00a63e'}};
 
 const chartConfig = {
-  balance: {label: "Solde", color: THEME.colors.balance, valueFormatter: formatEuro},
-  income: {label: "Revenus", color: THEME.colors.income, valueFormatter: formatEuro},
-  expense: {label: "Dépenses", color: THEME.colors.expense, valueFormatter: formatEuro},
+  balance: {
+    label: "Solde",
+    color: THEME.colors.income,
+    valueFormatter: formatEuro
+  },
+  income: { label: "Revenus", color: THEME.colors.income, valueFormatter: formatEuro },
+  expense: { label: "Dépenses", color: THEME.colors.expense, valueFormatter: formatEuro },
 };
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -312,17 +320,22 @@ const cashFlow = computed(() => {
   const nodes = [{id: 'center_budget', label: 'Mon Budget', type: 'budget'}];
   const links = [];
   const expenseCats = {};
-  let incIdx = 0;
+  const incomeCats = {};
 
   cleanTransactions.value.forEach(t => {
+    const cat = t.categoryName === 'Budget' ? 'Budget (Cat)' : t.categoryName;
+
     if (t.typeStr === 'income' || t.typeTransactionsId === 1) {
-      const id = `inc_${incIdx++}`;
-      nodes.push({id, label: `${t.name || 'Revenu'} (${formatEuro(t.amount)})`, type: 'income'});
-      links.push({source: id, target: 'center_budget', value: t.amount});
+      incomeCats[cat] = (incomeCats[cat] || 0) + t.amount;
     } else {
-      const cat = t.categoryName === 'Budget' ? 'Budget (Cat)' : t.categoryName;
       expenseCats[cat] = (expenseCats[cat] || 0) + t.amount;
     }
+  });
+
+  Object.entries(incomeCats).forEach(([name, value]) => {
+    const id = `${name}_in`;
+    nodes.push({id, label: name, type: 'income'});
+    links.push({source: id, target: 'center_budget', value});
   });
 
   Object.entries(expenseCats).forEach(([name, value]) => {
@@ -361,7 +374,6 @@ const currentYearBalanceData = computed(() => {
   return Array.from(map, ([dateLabel, balance]) => ({dateLabel, balance}));
 });
 </script>
-
 <style>
 .sankeyGraph g rect {
   transition: opacity 0.2s ease;
