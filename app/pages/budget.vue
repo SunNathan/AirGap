@@ -36,7 +36,7 @@
 
         <div v-else class="space-y-6">
           <div v-for="budget in sortedBudgets" :key="budget.id"
-               class="bg-neutral-50 dark:bg-neutral-800 p-4 border rounded-xl border-neutral-200 dark:border-neutral-750">
+               class="bg-neutral-50 dark:bg-neutral-800 p-4 border rounded-lg border-neutral-200 dark:border-neutral-750">
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-lg font-medium text-neutral-800 dark:text-neutral-50">{{ budget.name }}</h3>
 
