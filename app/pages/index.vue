@@ -65,9 +65,10 @@ definePageMeta({
   middleware: ['authenticated']
 });
 
-const {data: apiResult, pending: loading} = await useFetch('/api/transactions', {
+const { data: apiResult, pending: loading } = useFetch('/api/transactions', {
   key: 'dashboard-data',
-  lazy: false
+  lazy: true,
+  server: true
 });
 
 const transactions = computed(() => {
