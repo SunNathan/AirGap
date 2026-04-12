@@ -8,7 +8,7 @@ const config = useRuntimeConfig();
 const connectionString = config.databaseUrl;
 
 if (!connectionString) {
-    throw new Error("❌ ERREUR : La variable databaseUrl est VIDE. Vérifiez NUXT_DATABASE_URL dans Dokploy.");
+    throw new Error("❌ ERREUR : La variable databaseUrl est VIDE. Vérifiez NUXT_DATABASE_URL dans les variables d'environment.");
 }
 
 console.log("🔌 Connexion DB OK !");
