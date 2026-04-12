@@ -238,7 +238,6 @@ export const importTransactionsBulk = async (userId: string, rawTransactions: Re
                 }
             }
         }
-        console.log(`📊 Import terminé : ${importedCount} ajoutés, ${skippedCount} doublons ignorés.`);
         return importedCount;
     });
 };

@@ -227,28 +227,13 @@ const submitForm = async () => {
   try {
     isLoading.value = true;
 
-    let formattedDate = '';
-    const rawDate = form.value.date;
-
-    if (!rawDate) {
-      formattedDate = new Date().toISOString().split('T')[0];
-    } else if (typeof rawDate === 'string') {
-      formattedDate = rawDate;
-    } else if (rawDate.year && rawDate.month && rawDate.day) {
-      const m = String(rawDate.month).padStart(2, '0');
-      const d = String(rawDate.day).padStart(2, '0');
-      formattedDate = `${rawDate.year}-${m}-${d}`;
-    } else if (rawDate instanceof Date || typeof rawDate.toISOString === 'function') {
-      formattedDate = rawDate.toISOString().split('T')[0];
-    } else {
-      formattedDate = new Date().toISOString().split('T')[0];
-    }
+    const typeFormat= form.value.type === 'income' ? 'revenu' : 'depense';
 
     const payload = {
       description: form.value.description,
       amount: Number(form.value.amount),
       date: form.value.date ? form.value.date.toString() : undefined,
-      typeTransaction: typeValue,
+      typeTransaction: typeFormat,
       categoryId: form.value.categoryId,
       accountId: null
     };
