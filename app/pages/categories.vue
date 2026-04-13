@@ -38,17 +38,17 @@
                 <div class="flex items-center gap-3">
                   <span class="font-medium text-neutral-900 dark:text-neutral-100">{{ category.name }}</span>
                   <span class="text-xs px-2 py-0.5 rounded-full border"
-                        :class="category.typeTransaction === 'revenu' ? 'bg-primary-600/15 text-primary-800 border-primary-600/40' : 'bg-primary-550/15 text-primary-900 border-primary-550/40'">
+                        :class="category.typeTransaction === 'revenu' ? 'bg-primary-550/15 text-primary-550 border-primary-550/40' : 'bg-red-500/15 text-red-500 border-red-500/40'">
                     {{ category.typeTransaction === 'revenu' ? 'Revenu' : 'Dépense' }}
                   </span>
                 </div>
 
                 <div class="flex items-center space-x-1">
-                  <Button variant="ghost" class="cursor-pointer p-2 h-auto text-neutral-500 hover:text-primary-600"
+                  <Button variant="ghost" class="cursor-pointer p-2 h-auto text-neutral-500 hover:text-primary-550"
                           @click="editCategorie(category)">
                     <SquarePen class="h-4 w-4"/>
                   </Button>
-                  <Button variant="ghost" class="cursor-pointer p-2 h-auto text-neutral-500 hover:text-primary-550"
+                  <Button variant="ghost" class="cursor-pointer p-2 h-auto text-neutral-500 hover:text-red-500"
                           @click="confirmDeleteCategorie(category)">
                     <TrashIcon class="h-4 w-4"/>
                   </Button>
