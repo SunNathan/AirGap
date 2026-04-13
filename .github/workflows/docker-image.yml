@@ -17,9 +17,6 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -36,6 +33,5 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
-          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
