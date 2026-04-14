@@ -1,6 +1,6 @@
 # AirGap - Vos finances ne regardent que vous.
 
-Une application web open-source et complète pour gérer vos finances personnelles, développée avec Nuxt.js, Drizzle ORM, PostgreSQL.
+Une application web open-source et complète pour gérer vos finances personnelles, développée avec NuxtJs, DrizzleORM, PostgreSQL.
 
 ## 🚀 Fonctionnalités
 
@@ -8,15 +8,11 @@ Une application web open-source et complète pour gérer vos finances personnell
 - **Tableau de bord interactif** avec visualisations en temps réel
 - **Gestion budgétaire** avec suivi des dépenses par catégorie
 - **Suivi des transactions** avec catégorisation automatique
-- **Gestion des investissements** (actions, ETF, crypto-monnaies) (à venir)
-- **Calcul du patrimoine** avec répartition des actifs et passifs (à venir)
-- **Gestion multi-comptes** bancaires (à venir)
 
 ### Technologies Utilisées
-- **Frontend**: Nuxt.js 3, Vue 3, TailwindCSS
-- **Backend**: Drizzle ORM, PostgreSQL
-- **Visualisations**: Chart.js
-- **Intégration bancaire**: Firefly III API (à venir)
+- **Frontend**: NuxtJs, Vue 3, TailwindCSS, Shadcn
+- **Backend**: DrizzleORM, PostgreSQL
+- **Visualisations**: Unovis
 - **Conteneurisation**: Docker & Docker Compose
 
 ### Interface Moderne
@@ -49,7 +45,7 @@ cp .env.example .env
 
 3. **Lancer l'application avec Docker Compose**
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 4. **Accéder à l'application**
@@ -80,13 +76,19 @@ npm run dev
 
 ```
 airgap/
-├── components/          # Composants Vue réutilisables
-├── stores/             # Stores Pinia pour l'état global
 ├── server/             # API côté serveur
+├── app/                # Fichiers de l'app
+      ├── pages/        # Pages de l'app
+      ├── assets/       # Fichiers styles
+      └── components/   # Composants Vue réutilisables
 ├── public/             # Fichiers statiques
 ├── docker-compose.yml  # Configuration Docker
+├── Dockerfile          # Composants Vue réutilisables
 ├── package.json        # Dépendances du projet
-└── README.md          # Documentation
+├── package-lock.json   # Dépendances du projet
+├── nuxt.config.js      # Configuration de Nuxt
+├── drizzle.config.ts   # Configuration de Drizzle
+└── README.md           # Documentation
 ```
 
 ## 🔧 Configuration
@@ -97,7 +99,7 @@ Créez un fichier `.env` à la racine du projet :
 
 ```env
 # Database
-DATABASE_URL=postgresql://airgap_user:airgap_password@localhost:5432/airgap
+NUXT_DATABASE_URL=postgresql://airgap_user:airgap_password@localhost:5432/airgap
 
 ```
 ## 📊 Base de Données
@@ -110,10 +112,8 @@ La base de données inclut les tables suivantes :
 - `categories` - Catégories de transactions
 - `transactions` - Transactions financières
 - `budgets` - Budgets mensuels
-- `investments` - Investissements et portefeuille
-- `assets` - Actifs du patrimoine
-- `liabilities` - Passifs et dettes
-
+- `recurrences` - Gestion des transactions récurrentes
+ 
 ### Migration
 
 ```bash
@@ -139,23 +139,11 @@ npx drizzle-kit studio
 
 #### Tableau de Bord
 - Vue d'ensemble des finances
-- Graphiques de tendances (Non implémenté)
-- Alertes et notifications (Non implémenté)
+- Graphiques de tendances
 
 #### Gestion Budgétaire
 - Création de budgets par catégorie
-- Suivi en temps réel des dépenses (Non implémenté)
-- Alertes de dépassement (Non implémenté)
-
-#### Investissements (Non implémenté)
-- Suivi du portefeuille
-- Performance des actifs
-- Répartition par type d'investissement
-
-#### Patrimoine (Non implémenté)
-- Calcul de la valeur nette
-- Évolution du patrimoine
-- Répartition des actifs
+- Suivi en temps réel des dépenses
 
 ## 🔒 Sécurité
 
@@ -163,6 +151,7 @@ npx drizzle-kit studio
 - Validation des entrées côté serveur
 - Protection CSRF
 - Sessions sécurisées
+- Cryptage des données (protocole AES-GCM 256)
 
 ## 📱 Responsive Design
 
@@ -180,7 +169,7 @@ Ce projet est sous licence AGPLv3. Voir le fichier LICENSE pour plus de détails
 Pour toute question ou problème :
 - Ouvrez une issue sur GitHub
 - Consultez la documentation
-- Contactez l'équipe de support
+- Contactez l'équipe de support sur discord
 
 ---
 
