@@ -15,14 +15,3 @@ services:
     restart: always
     ports:
       - "8080:8080"
-
-  web:
-    build: .
-    restart: always
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    env_file: ".env"
-    environment:
-      NUXT_DATABASE_URL: postgresql://toto:your_secure_password_here@db:5432/db_toto
